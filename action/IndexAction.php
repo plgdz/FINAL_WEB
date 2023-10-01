@@ -8,21 +8,29 @@
 		}
 
 		protected function executeAction() {
-            $data = [];
-            $data["username"] = $_POST["username"];
-            $data["password"] = $_POST["password"];
+            if(!empty($_POST)){
+                $connection = 0;
+                $data = [];
+                $data["username"] = $_POST["username"];
+                $data["password"] = $_POST["password"];
 
-            $result = parent::callAPI("signin", $data);
+                $result = parent::callAPI("signin", $data);
 
-            if ($result == "INVALID_USERNAME_PASSWORD") {
-            	// err
+                if ($result == "INVALID_USERNAME_PASSWORD") {
+                	$connection = 0;
+                }
+                else {
+                	// Pour voir les informations retournées : var_dump($result);exit;
+                    var_dump($result);
+                	$key = $result->key;
+                    $connection = 1;
+                    
+                }
+
+                echo var_dump($result);
+
+                return compact("connection");
             }
-            else {
-            	// Pour voir les informations retournées : var_dump($result);exit;
-                var_dump($result);
-            	$key = $result->key;
-            }
-
-            return [];
+            
         }
-	}	
+    }	
