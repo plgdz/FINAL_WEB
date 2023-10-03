@@ -1,0 +1,30 @@
+body{
+    padding: 0;
+    margin:0;
+    background-image: url("../images/background/bg-lobby.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+}
+
+#dojo {
+    position: absolute;
+    top: 175px;
+    left: 115px;
+    transition: scale 2s;
+}
+
+#dojo:hover{
+    scale: 1.1;
+}
+
+#fontaine {
+    position: absolute;
+    top: 175px;
+    left: 115px;
+}
+
+#fontaine:hover{
+    scale: 1.1;
+}

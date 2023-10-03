@@ -8,8 +8,9 @@
 		}
 
 		protected function executeAction() {
+            $connection = 0;
             if(!empty($_POST)){
-                $connection = 0;
+                
                 $data = [];
                 $data["username"] = $_POST["username"];
                 $data["password"] = $_POST["password"];
@@ -22,15 +23,13 @@
                 else {
                 	// Pour voir les informations retournées : var_dump($result);exit;
                     var_dump($result);
-                	$key = $result->key;
-                    $connection = 1;
-                    
+                	$key = $result->key;   
+                    echo $key;                 
                 }
 
-                echo var_dump($result);
-
-                return compact("connection");
+                
             }
+            return compact("connection");
             
         }
     }	

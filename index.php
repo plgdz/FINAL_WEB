@@ -15,18 +15,19 @@
 </head>
 <body>
     <div id="container">
+        <div id="top-container">
+            <img src="./images/logo/logo.png" alt="logo" id="logo">
+            <h2>LOGIN</h2>
+            <div id="break"></div>
+        </div>
+        
         <div id="box-login">
             <form action="" method="post">
-                <input id="connection-token" type="hidden" value="<?= $data["connection"] ?>">
-                <div class="box-input" >
-                    <label for="username">Nom d'utilisateur :</label>
+                <div id="input-container">
                     <input type="text" name="username" id="username" placeholder="Votre nom d'utilisateur">
+                    <input type="password" name="password" id="password" placeholder="Mot de passe">
                 </div>
-                <div class="box-input">
-                    <label for="password">Mot de passe :</label>
-                    <input type="password" name="password" id="password">
-                </div>
-                <button type="submit">Connection</button>
+                <button type="submit">PLAY</button>
             </form>
         </div>
     </div>
