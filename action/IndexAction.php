@@ -24,7 +24,7 @@
                 	// Pour voir les informations retournées : var_dump($result);exit;
                     var_dump($result);
                 	$key = $result->key;   
-                    echo $key;                 
+                    $_SESSION["key"] = $key;            
                 }
 
                 
