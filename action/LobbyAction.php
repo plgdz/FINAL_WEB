@@ -8,6 +8,6 @@
 		}
 
 		protected function executeAction() {
-            echo "lobby";
+            return [];
         }
     }

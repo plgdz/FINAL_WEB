@@ -10,11 +10,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/lobby.css">
-    <title>Magix Dofus</title>
+    <script src="js/lobby.js"></script>
+
+    <title>Lobby</title>
 </head>
 <body>
+    
     <img src="./images/background/dojo.png" id="dojo" alt="" srcset="">
     <img src="./images/background/fontaine.png" id="fontaine" alt="" srcset="">
-
+    <div id="burger-menu">
+        <img src="./images/logo/logo.png" alt="logo" id="logo">
+    </div>
+    
 </body>
 </html>

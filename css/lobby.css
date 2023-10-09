@@ -8,11 +8,12 @@ body{
     background-size: cover;
 }
 
+
 #dojo {
     position: absolute;
-    top: 175px;
-    left: 115px;
-    transition: scale 2s;
+    top: 18%;
+    left: 6%;
+
 }
 
 #dojo:hover{
@@ -21,10 +22,43 @@ body{
 
 #fontaine {
     position: absolute;
-    top: 175px;
-    left: 115px;
+    top: 37%;
+    left:57.6%;
 }
 
 #fontaine:hover{
-    scale: 1.1;
+    scale: 1.2;
+}
+
+#logo{
+    height: 150px;
+    display: none;
+}
+
+#burger-menu{
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    background-color: red;
+    border-radius: 20px;
+}
+
+#burger-menu:hover {
+    animation: burger 1s forwards ;
+}
+
+
+@keyframes burger {
+    0% {
+
+    } 100% {
+        width: 400px;
+        height: 600px;
+        #logo {
+            display: block;
+        }
+    }
+      
 }
