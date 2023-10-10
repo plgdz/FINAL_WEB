@@ -11,23 +11,44 @@ body{
 
 #dojo {
     position: absolute;
-    top: 18%;
-    left: 6%;
-
+    top: 17.7%;
+    left: 5.6%;
+    animation: pulse 3s alternate infinite linear;
+    border-radius: 50%;
+    border: solid 3px rgba(255, 255, 0, 0);
 }
 
 #dojo:hover{
-    scale: 1.1;
+    scale: 1.2;
+    cursor: pointer;
+    border: solid 3px rgb(117, 117, 33);
+    box-shadow: 0 10px 20px 0 rgba(117, 117, 33, 0.575);
 }
 
 #fontaine {
     position: absolute;
-    top: 37%;
-    left:57.6%;
+    top: 36.7%;
+    left:57.4%;
+    animation: pulse 3s alternate infinite linear;
+    border: solid 3px rgba(255, 255, 255, 0);
+    border-radius: 50% 50% 30% 30%;
+
 }
 
 #fontaine:hover{
     scale: 1.2;
+    cursor: pointer;
+    border: solid 3px rgb(117, 117, 33);
+    box-shadow: 0 10px 20px 0 rgba(117, 117, 33, 0.575);
+}
+
+@keyframes pulse {
+    0%{
+        scale: 1.0;
+    }
+    100% {
+        scale: 1.05;
+    }
 }
 
 #logo{

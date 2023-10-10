@@ -8,6 +8,12 @@
 		}
 
 		protected function executeAction() {
-            return [];
+            if(!empty($_POST)){
+				echo $_POST["game_mode"];
+
+
+
+			}
+			return [];
         }
     }

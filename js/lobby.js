@@ -28,35 +28,51 @@ function popUpDojo() {
     container.style.alignItems = "center"
     container.style.justifyContent = "space-around"
 
-    let jouer = document.createElement("div")
-    jouer.style.width = "45%"
-    jouer.style.height = "95%"
-    jouer.style.backgroundColor = "red"
-    jouer.style.borderRadius = "10px"
-    jouer.style.display = "flex"
-    jouer.style.alignItems = "center"
-    jouer.style.justifyContent = "space-around"
-    jouer.innerHTML = "<h1>JOUER</h1>"
-    // jouer.style.position = "absolute"
-
-    let practice = document.createElement("div")
-    practice.style.width = "48%"
-    practice.style.height = "95%"
-    practice.style.backgroundColor = "blue"
-    practice.style.borderRadius = "10px"
-    practice.style.display = "flex"
-    practice.style.alignItems = "center"
-    practice.style.justifyContent = "space-around"
-    practice.innerHTML = "<h1>PRATIQUE</h1>"
-    // practice.style.position = "absolute"
+    let pvp = elemMenu("PVP", "JOUER")
+    let training = elemMenu("TRAINING", "PRATIQUE")
     
-    container.append(jouer)
-    container.append(practice)
+    container.append(pvp)
+    container.append(training)
 
     document.querySelector("body").append(back)
     document.querySelector("body").append(container)
 
     back.addEventListener("click", removeDojoMenu)
+}
+
+function elemMenu(gameType, title) {
+
+    let element = document.createElement("form")
+    element.setAttribute('action', '')
+    element.setAttribute('method', 'post')
+    element.style.width = "45%"
+    element.style.height = "95%"
+    element.style.display = "block"
+    element.style.backgroundColor = "red"
+    element.style.borderRadius = "10px"
+    element.style.display = "flex"
+    element.style.alignItems = "center"
+    element.style.justifyContent = "space-around"
+    element.style.position = "relative"
+    element.style.top = "50%"
+    element.style.transform = "translateY(-50%)"
+
+    let input = document.createElement("input")
+    input.setAttribute('name', 'game_mode')
+    input.setAttribute('value', gameType)
+    input.setAttribute('type', 'hidden')
+
+    let btn = document.createElement("button")
+    btn.style.width = "100%"
+    btn.style.height = "100%"
+    btn.innerHTML = title
+    btn.setAttribute("type", "submit")
+
+    element.append(input)
+    element.append(btn)
+
+    return element
+    
 }
 
 function removeDojoMenu(){
