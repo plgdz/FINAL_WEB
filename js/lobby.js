@@ -45,6 +45,7 @@ function elemMenu(gameType, title) {
     let element = document.createElement("form")
     element.setAttribute('action', '')
     element.setAttribute('method', 'post')
+    element.style.padding = "0"
     element.style.width = "45%"
     element.style.height = "95%"
     element.style.display = "block"
@@ -65,14 +66,31 @@ function elemMenu(gameType, title) {
     let btn = document.createElement("button")
     btn.style.width = "100%"
     btn.style.height = "100%"
+    btn.style.margin = "0"
+
     btn.innerHTML = title
     btn.setAttribute("type", "submit")
+
+    if (gameType == "PVP") {
+        btn.style.backgroundImage = 'url("../images/background/pvp.jpg")'  
+    } else {
+        btn.style.backgroundImage = 'url("../images/background/training.jpg")'
+    }
+
+    btn.style.backgroundPosition = "center"
+    btn.style.backgroundRepeat = "no-repeat"
+    btn.style.backgroundSize = "cover"
+    btn.style.backgroundAttachment = "fixed"
+
+    btn.style.color = "white"
+    btn.style.fontFamily = "'Ubuntu', sans-serif"
+    btn.style.fontSize = "larger"
+    btn.style.fontWeight = "700"
 
     element.append(input)
     element.append(btn)
 
-    return element
-    
+    return element 
 }
 
 function removeDojoMenu(){
