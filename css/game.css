@@ -1,0 +1,27 @@
+#health{
+    position: relative;
+    width: 200px;
+    height: 200px;
+    background-color: rgba(250,184,66, 0.8);
+    transform: rotate(45deg);
+}
+     
+#health:before{
+    position: absolute;
+    bottom: 0px;
+    left: -100px;
+    width: 200px;
+    height: 200px;
+    content: '';
+    border-radius: 50%;
+}
+
+#health:after{
+    position: absolute;
+    top: -100px;
+    right: 0px;
+    width: 200px;
+    height: 200px;
+    content: '';
+    border-radius: 50%;
+  }

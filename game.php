@@ -1,0 +1,21 @@
+<?php
+    require_once("action/GameAction.php");
+    $action = new GameAction();
+    $data = $action->execute();
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/game.css">
+
+    <title>Game</title>
+</head>
+<body>
+    
+    <div id="health"></div>
+    
+</body>
+</html>
