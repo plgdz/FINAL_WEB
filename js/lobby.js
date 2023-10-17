@@ -1,6 +1,8 @@
 window.addEventListener("load", () => {
     let dojo = document.querySelector("#dojo")
-    dojo.addEventListener("click", popUpDojo) 
+    let menu = document.querySelector("#burger-menu")
+    dojo.addEventListener("click", popUpDojo)
+    menu.addEventListener("click", burgerMenu)
 
 })
 
@@ -96,4 +98,52 @@ function elemMenu(gameType, title) {
 function removeDojoMenu(){
     document.querySelector("#dojo-menu-bg").remove()
     document.querySelector("#dojo-menu").remove()
+}
+
+function burgerMenu(){
+    let menu = document.createElement("div")
+    menu.style.height = "250px"
+    menu.style.width = "15vw"
+    menu.style.position = "absolute"
+    menu.style.top = "2vh"
+    menu.style.right = "2vw"
+    menu.style.backgroundColor = "#5c4033"
+    menu.style.borderRadius = "10px"
+    menu.style.border = "solid 4px #453026"
+
+    let menuTitle = document.createElement('h2')
+    menuTitle.innerHTML = "PARAMETRES"
+    menuTitle.style.textAlign = "center"
+    menuTitle.style.fontFamily = "'Ubuntu', sans-serif"
+    menuTitle.style.color = "#ebe7e5"
+    menu.append(menuTitle)
+
+    let listMenu = document.createElement('ul')
+
+    let music = document.createElement('li')
+    music.style.display = "flex"
+    music.style.alignItems = "center"
+    music.innerHTML = '<p>Musique</p>\
+        <label class="switch">\
+            <input type="checkbox">\
+            <span class="slider round"></span>\
+        </label>'
+
+    let chat = document.createElement('li')
+    chat.innerHTML = "Chat"
+
+    let deckCreation = document.createElement('li')
+    deckCreation.innerHTML = "Gestion du deck"
+
+    let signout = document.createElement('li')
+    signout.innerHTML = "Deconnection"
+    
+    listMenu.append(music)
+    listMenu.append(chat)
+    listMenu.append(deckCreation)
+    listMenu.append(signout)
+
+    menu.append(listMenu)
+    document.querySelector("body").append(menu)
+    
 }
