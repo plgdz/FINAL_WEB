@@ -14,8 +14,18 @@
     <title>Game</title>
 </head>
 <body>
-    
-    <div id="health"></div>
-    
+    <div id="info-opponent">
+    </div>
+
+    <div id="deck">
+        <div class="card-container" id="cc1"></div>
+        <div id="btn-container">
+            <div id="power">HERO POWER</div>
+            <div id="end-turn">END TURN</div>
+        </div>
+        <div class="card-container" id="cc2"></div>
+        <div id="health"></div>
+        <div id="mp"></div>  
+    </div>    
 </body>
 </html>
