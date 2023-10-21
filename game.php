@@ -15,6 +15,8 @@
 </head>
 <body>
     <div id="info-opponent">
+    <div id="health" class="health-opps"></div>
+    <div id="mp" class="mp-opps"></div>  
     </div>
 
     <div id="deck">
@@ -24,8 +26,8 @@
             <div id="end-turn">END TURN</div>
         </div>
         <div class="card-container" id="cc2"></div>
-        <div id="health"></div>
-        <div id="mp"></div>  
+        <div id="health" class="health-perso"></div>
+        <div id="mp" class="mp-perso"></div>  
     </div>    
 </body>
 </html>

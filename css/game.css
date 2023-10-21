@@ -4,13 +4,18 @@
 body{
     padding: 0;
     margin: 0;
+    background-image: url("../images/background/bg-lobby.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
 }
 
 #deck{
     position: fixed;
     bottom: 0;
     width: 100%;
-    height: 30vh;
+    height: 20vh;
     background-color: #5C4033;
     display: flex;
     align-items: center
@@ -32,8 +37,8 @@ body{
 }
 
 #btn-container{
-    width: 30vh;
-    height: 30vh;
+    width: 22vh;
+    height: 22vh;
     background-color: rgba(54, 46, 35, 0);
     border-radius: 50%;
     position: absolute;
@@ -79,8 +84,6 @@ body{
     width: 50px;
     height: 50px;
     background-color: rgba(255, 0, 0);
-    left: 42%;
-    top: -5%;
     transform: rotate(45deg);
 }
      
@@ -106,15 +109,24 @@ body{
     background-color: rgba(255, 0, 0);
 }
 
+.health-perso {
+    left: 42%;
+    top: -5%;
+}
+
 #mp{
     height: 75px;
     width: 75px;
     border-radius: 50%;
     background-color: #334f5c;
     position: absolute;
+
+    transform: translateY(-50%);
+}
+
+.mp-perso{
     left: 55%;
     top: 0;
-    transform: translateY(-50%);
 }
 
 #info-opponent{
@@ -122,4 +134,14 @@ body{
     width: 100vw;
     background-color: aqua;
     position: fixed;
+}
+
+.health-opps {
+    left: 2%;
+    top: 30%;
+}
+
+.mp-opps{
+    left: 6%;
+    top: 50%;
 }
