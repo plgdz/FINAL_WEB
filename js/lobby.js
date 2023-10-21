@@ -1,9 +1,13 @@
+let started = false
+let playing = false
+
 window.addEventListener("load", () => {
+    
+
     let dojo = document.querySelector("#dojo")
     let menu = document.querySelector("#burger-menu")
     dojo.addEventListener("click", popUpDojo)
     menu.addEventListener("click", burgerMenu)
-
 })
 
 function popUpDojo() {
@@ -125,17 +129,20 @@ function burgerMenu(){
     music.style.alignItems = "center"
     music.innerHTML = '<p>Musique</p>\
         <label class="switch">\
-            <input type="checkbox">\
+            <input id="toggle" type="checkbox">\
             <span class="slider round"></span>\
-        </label>'
+        </label>'    
 
     let chat = document.createElement('li')
+    chat.className = "elem-menu"
     chat.innerHTML = "Chat"
 
     let deckCreation = document.createElement('li')
+    deckCreation.className = "elem-menu"
     deckCreation.innerHTML = "Gestion du deck"
 
     let signout = document.createElement('li')
+    signout.className = "elem-menu"
     signout.innerHTML = "Deconnection"
     
     listMenu.append(music)
@@ -143,7 +150,38 @@ function burgerMenu(){
     listMenu.append(deckCreation)
     listMenu.append(signout)
 
+    let close = document.createElement('div')
+    close.className = 'close'
+    
+    
+
+    close.addEventListener('click', () => {
+        menu.remove()
+    })
+
+    menu.append(close)
     menu.append(listMenu)
     document.querySelector("body").append(menu)
     
+    // Set l'etat du bouton en fonction de la
+    document.querySelector('#toggle').checked = playing
+
+    document.querySelector('#toggle').addEventListener('change', () => {
+        started = true
+        if (document.querySelector('#toggle').checked) {
+            document.querySelector("#music").play()
+
+        } else {
+            document.querySelector("#music").pause()
+        }
+        playing = !playing
+    })
+
+    chat.addEventListener('click', openChat)
+    
+}
+
+function openChat() {
+    console.log('implementer chat')
+
 }
