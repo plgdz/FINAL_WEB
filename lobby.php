@@ -15,14 +15,25 @@
     <title>Lobby</title>
 </head>
 <body>
+    <div id="chat-container">
+        <iframe id="chat" onload="applyStyles(this)" 
+                src="https://magix.apps-de-cours.com/server/#/chat/<?= $data["key"] ?>">
+        </iframe>
+    </div>
+    
+
     <audio id="music">
         <source src="sounds/ost-lobby.mp3" type="audio/mp3">
     </audio>
-    <img src="./images/background/dojo.png" id="dojo" alt="" srcset="">
-    <img src="./images/background/fontaine.png" id="fontaine" alt="" srcset="">
+    <div id="arene"></div>
     <div id="burger-menu">
-        <img src="./images/logo/logo.png" alt="logo" id="logo">
+        <img src="images/logo/logo-min.png" alt="logo" id="logo">
     </div>
-    
+    <div id="deck-back">
+        <iframe id="deck" src="https://magix.apps-de-cours.com/server/#/deck/<?= $data["key"] ?>">
+        </iframe>
+    </div>
+
+
 </body>
 </html>

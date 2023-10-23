@@ -4,10 +4,11 @@ let playing = false
 window.addEventListener("load", () => {
     
 
-    let dojo = document.querySelector("#dojo")
+    let arene = document.querySelector("#arene")
     let menu = document.querySelector("#burger-menu")
-    dojo.addEventListener("click", popUpDojo)
+    arene.addEventListener("click", popUpDojo)
     menu.addEventListener("click", burgerMenu)
+
 })
 
 function popUpDojo() {
@@ -109,11 +110,11 @@ function burgerMenu(){
     menu.style.height = "250px"
     menu.style.width = "15vw"
     menu.style.position = "absolute"
-    menu.style.top = "2vh"
-    menu.style.right = "2vw"
-    menu.style.backgroundColor = "#5c4033"
+    menu.style.top = "20px"
+    menu.style.right = "40px"
+    menu.style.backgroundColor = "#3a3838"
     menu.style.borderRadius = "10px"
-    menu.style.border = "solid 4px #453026"
+    menu.style.border = "solid 4px #252424"
 
     let menuTitle = document.createElement('h2')
     menuTitle.innerHTML = "PARAMETRES"
@@ -133,28 +134,27 @@ function burgerMenu(){
             <span class="slider round"></span>\
         </label>'    
 
-    let chat = document.createElement('li')
-    chat.className = "elem-menu"
-    chat.innerHTML = "Chat"
-
     let deckCreation = document.createElement('li')
     deckCreation.className = "elem-menu"
-    deckCreation.innerHTML = "Gestion du deck"
+    deckCreation.innerHTML = 'Gestion du deck'
 
     let signout = document.createElement('li')
     signout.className = "elem-menu"
-    signout.innerHTML = "Deconnection"
+    signout.innerHTML = '\
+        <form method="post" class="inline">\
+            <button type="submit" name="signout" value="signout">\
+              Deconnexion\
+            </button>\
+        </form>\
+    '
     
     listMenu.append(music)
-    listMenu.append(chat)
     listMenu.append(deckCreation)
     listMenu.append(signout)
 
     let close = document.createElement('div')
     close.className = 'close'
     
-    
-
     close.addEventListener('click', () => {
         menu.remove()
     })
@@ -163,25 +163,55 @@ function burgerMenu(){
     menu.append(listMenu)
     document.querySelector("body").append(menu)
     
-    // Set l'etat du bouton en fonction de la
+    // Set l'etat du bouton en fonction de la musique
     document.querySelector('#toggle').checked = playing
 
     document.querySelector('#toggle').addEventListener('change', () => {
         started = true
         if (document.querySelector('#toggle').checked) {
             document.querySelector("#music").play()
-
         } else {
             document.querySelector("#music").pause()
         }
         playing = !playing
     })
 
-    chat.addEventListener('click', openChat)
+    deckCreation.addEventListener('click', () => {
+        openDeck()
+        menu.remove()
+    })
     
 }
 
-function openChat() {
-    console.log('implementer chat')
+function openDeck() {
+    let deckDisplay = document.querySelector('#deck-back')
+    deckDisplay.style.display = 'block'
+    deckDisplay.style.zIndex = '9'
 
+    deckDisplay.addEventListener('click', () => {
+        deckDisplay.style.display = 'none'
+    })
 }
+
+const applyStyles = iframe => {
+	let styles = {
+		fontColor : "#ebe7e5",
+		backgroundColor : "#3a3838",
+		fontGoogleName : "Ubuntu",
+		fontSize : "1.2rem",
+		hideIcons : false,
+		inputBackgroundColor : "#252424",
+		inputFontColor : "#ebe7e5",
+		height : "100%",
+        width : "100%",
+        zIndex : "1",
+		memberListFontColor : "white",
+		borderColor : "black",
+		memberListBackgroundColor : "#252424",
+	}
+	
+	setTimeout(() => {
+		iframe.contentWindow.postMessage(JSON.stringify(styles), "*");	
+}, 100);
+}
+

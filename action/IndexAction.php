@@ -23,8 +23,13 @@
                 else {
                 	// Pour voir les informations retournées : var_dump($result);exit;
                     var_dump($result);
-                	$key = $result->key;   
-                    $_SESSION["key"] = $key;            
+                    $_SESSION["key"] = $result->key;
+                    $_SESSION["winCount"] = $result->winCount;
+                    $_SESSION["lossCount"] = $result->LossCount;
+                    $_SESSION["trophies"] = $result->trophies;    
+                    $_SESSION["username"] = $_POST["username"];
+                    $_SESSION["visibility"] = CommonAction::$VISIBILITY_MEMBER;
+                    header("location:lobby.php");            
                 }
 
                 

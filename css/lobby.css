@@ -4,45 +4,28 @@
 body{
   padding: 0;
   margin:0;
-  background-image: url("../images/background/bg-lobby.png");
+  background-image: url("../images/background/bg-bonta.png");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
 }
 
-
-#dojo {
+#arene {
   position: absolute;
-  top: 17.7%;
-  left: 8%;
+  height: 320px;
+  width: 280px;
+  right: 27%;
+  top: 15%;
   animation: pulse 3s alternate infinite linear;
-  border-radius: 50%;
-  border: solid 3px rgba(255, 255, 0, 0);
+  border: solid 3px rgb(0, 0, 0);
 }
 
-#dojo:hover{
+#arene:hover{
   scale: 1.2;
   cursor: pointer;
-  border: solid 3px rgb(117, 117, 33);
-  box-shadow: 0 10px 20px 0 rgba(117, 117, 33, 0.575);
-}
+  border: solid 3px rgb(68, 68, 65);
 
-#fontaine {
-  position: absolute;
-  top: 36.7%;
-  left:57.4%;
-  animation: pulse 3s alternate infinite linear;
-  border: solid 3px rgba(255, 255, 255, 0);
-  border-radius: 50% 50% 30% 30%;
-
-}
-
-#fontaine:hover{
-  scale: 1.2;
-  cursor: pointer;
-  border: solid 3px rgb(117, 117, 33);
-  box-shadow: 0 10px 20px 0 rgba(117, 117, 33, 0.575);
 }
 
 @keyframes pulse {
@@ -55,19 +38,26 @@ body{
 }
 
 #logo{
-    height: 150px;
-    display: none;
+    height: 25px;
+    opacity: 0.7;
 }
 
 #burger-menu{
   height: 40px;
   width: 40px;
   position: absolute;
-  top: 40px;
+  top: 20px;
   right: 40px;
-  background-color: red;
-  border-radius: 20px;
-    
+  background-color: #3a3838;
+  border: solid 3px #252424;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#burger-menu:hover, #logo:hover {
+  opacity: 1;
 }
 
 ul{
@@ -174,3 +164,41 @@ li{
     border-radius: 50%;
   } 
 
+#chat {
+  height: 40%;
+  width: 37%;
+  position: absolute;
+  top: 5vw;
+  left: 5vw;
+  padding: 5px;
+  background-color: #252424;
+  border: 3px solid #3a3838;
+}
+button {
+  text-decoration: none;
+  list-style: none;
+  font-family: 'Ubuntu', sans-serif;
+  background: none;
+  border: none;
+  color: #ebe7e5;
+  cursor: pointer;
+  font-size: 1em;
+  font-family: serif;
+}
+
+#deck-back {
+  height: 100vh;
+  width: 100vw;
+  background-color: #ffffff3a;
+  display: none;
+  z-index: 1;
+}
+
+#deck {
+  height: 90vh;
+  width: 90vw;
+  position: absolute;
+  top: 5vh;
+  left: 5vw;
+  background-color: #252424;
+}
