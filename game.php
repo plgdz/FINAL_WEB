@@ -10,13 +10,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/game.css">
-
+    <link rel="stylesheet" href="./css/game-card.css">
+    <script type="module" src="js/game/game.js"></script>
     <title>Game</title>
 </head>
 <body>
     <div id="info-opponent">
     <div id="health" class="health-opps"></div>
-    <div id="mp" class="mp-opps"></div>  
+    <div id="mp" class="mp-opps"></div>
+    <div id="container-card-opp" ></div>  
+    </div>
+
+    <div id="board" >
+
     </div>
 
     <div id="deck">

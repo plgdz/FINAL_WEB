@@ -1,0 +1,67 @@
+.card-hand {
+    display: block;
+    height: 90%;
+    width: 20%;
+    background-color: aqua;
+    border: solid 4px green;
+    border-radius: 5px;
+    margin-left: 2%;
+}
+
+.card-hand:hover{
+    transform: translateY(-50%) scale(1.5);
+    animation: .5s;
+    z-index: 99;
+}
+
+.card-hand-details {
+    height: 3vh;
+    width: 3vh;
+    border-radius: 100%;
+    position: relative;
+    top: 0;
+    right: 0;
+    transform: translate(-30%, -30%);
+    text-align: center;
+    color: white;
+    z-index: 3;
+}
+
+.card-hp {
+    background-color: red;
+}
+
+.card-atk{
+    background-color: grey;
+}
+
+.card-cost{
+    background-color: blue;
+}
+
+.card-hand-img{
+    position: relative;
+    top: -8.5vh;
+    left: 5%;
+    width: 90%;
+    height: 60%;
+    background-color: black;
+}
+
+.card-hand-desc {
+    position: relative;
+    top: -8vh;
+    left: 5%;
+    width: 90%;
+    height: 30%;
+    background-color: salmon;
+}
+
+.card-opp {
+    height: 90%;
+    width: 11%;
+    background-color: beige;
+    border-radius: 3px;
+    border: 2px solid red;
+    margin-left: 1%;
+}

@@ -11,6 +11,17 @@ body{
     background-size: cover;
 }
 
+#board{
+    position: absolute;
+    top: 50vh;
+    left: 50vw;
+    transform: translate(-50%, -60%);
+   height: 60vh;
+   width: 60vw;
+   background-color: #fff;
+   opacity: .1; 
+}
+
 #deck{
     position: fixed;
     bottom: 0;
@@ -34,6 +45,8 @@ body{
     height: 90%;
     width: 35vw;
     background-color: #70584d;
+    display: flex;
+    align-items: center;
 }
 
 #btn-container{
@@ -144,4 +157,16 @@ body{
 .mp-opps{
     left: 6%;
     top: 50%;
+}
+
+#container-card-opp {
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 90%;
+    width: 30%;
+    background-color: #335c40;
+    display: flex;
+    align-items: center;
 }
