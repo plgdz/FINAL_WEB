@@ -71,7 +71,9 @@
     height: 90%;
     width: 11%;
     background-color: var(--card-bg);
-    background-image: ;
+    background-image: url('../images/background/card-opp.png');
+    background-position: center;
+    background-size: cover;
     border-radius: 3px;
     border: 2px solid var(--card-border);
     margin-left: 1%;

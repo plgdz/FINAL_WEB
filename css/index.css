@@ -76,6 +76,7 @@ input{
     border: solid 1px rgb(56, 53, 48);
     border-radius: 3px;
     color: #f5eaea;
+    z-index: 99;
 }
 
 button{

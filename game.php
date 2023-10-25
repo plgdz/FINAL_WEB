@@ -22,7 +22,7 @@
     </div>
 
     <div id="board" >
-
+        
     </div>
 
     <div id="deck">
