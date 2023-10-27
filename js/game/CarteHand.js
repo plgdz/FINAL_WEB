@@ -40,6 +40,10 @@ export class CarteHand {
         
         document.getElementById(node).append(this.template)
     }
+    
+    setID(index){
+        this.template.id = 'hand-' + index
+    }
 
     getTemplate(){ return this.template }
 

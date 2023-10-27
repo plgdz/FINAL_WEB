@@ -11,6 +11,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/game.css">
     <link rel="stylesheet" href="./css/game-card.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
     <script type="module" src="js/game/game.js"></script>
     <title>Game</title>
 </head>
@@ -22,7 +24,8 @@
     </div>
 
     <div id="board" >
-        
+        <div class="board-container"></div>
+        <div class="board-container" id="board-player"></div>
     </div>
 
     <div id="deck">
