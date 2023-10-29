@@ -10,12 +10,12 @@
 
 .card-hand {
     display: block;
-    height: 90%;
-    width: 20%;
     background-color: var(--card-bg);
     border: solid 4px var(--card-border);
     border-radius: 5px;
     margin-left: 2%;
+    height: 80%;
+    width: 15%;
 }
 
 .card-hand:hover{
@@ -70,11 +70,13 @@
 .card-opp {
     height: 90%;
     width: 11%;
+    margin-left: 1%;
     background-color: var(--card-bg);
     background-image: url('../images/background/card-opp.png');
     background-position: center;
     background-size: cover;
-    border-radius: 3px;
     border: 2px solid var(--card-border);
-    margin-left: 1%;
+    border-radius: 3px;
+    transform: rotateY('180');
 }
+

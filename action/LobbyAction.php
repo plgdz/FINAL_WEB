@@ -22,7 +22,16 @@
 					header('location:index.php');
 				} 
 			} elseif (!empty($_POST['game_mode'])) {
-				echo $_POST['game_mode'];
+				$dataAPI = [];
+				$dataAPI['type'] = $_POST['game_mode'];
+				$dataAPI['key'] = $data['key'];
+				$result = CommonAction::callAPI('games/auto-match', $dataAPI);
+
+				if($result == 'JOINED_PVP' || $result == 'CREATED_PVP' || $result == 'JOINED_TRAINING') {
+					header('location:game.php');
+				} else {
+					echo $result;
+				}
 			}
 			return $data;
         }

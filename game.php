@@ -18,13 +18,13 @@
 </head>
 <body>
     <div id="info-opponent">
-    <div id="health" class="health-opps"></div>
-    <div id="mp" class="mp-opps"></div>
-    <div id="container-card-opp" ></div>  
+        <div id="health" class="health-opps"><h3 class="nb-health info-hp-mp" id="hp-opp"></h3></div>
+        <div id="mp" class="mp-opps"><h3 class="info-hp-mp" id="mp-opp" ></h3></div>
+        <div id="container-card-opp" ></div>  
     </div>
 
     <div id="board" >
-        <div class="board-container"></div>
+        <div class="board-container" id="board-opp"></div>
         <div class="board-container" id="board-player"></div>
     </div>
 
@@ -35,8 +35,8 @@
             <div id="end-turn">END TURN</div>
         </div>
         <div class="card-container" id="cc2"></div>
-        <div id="health" class="health-perso"></div>
-        <div id="mp" class="mp-perso"></div>  
+        <div id="health" class="health-perso"><h3 class="nb-health info-hp-mp" id="hp-player" ></h3></div>
+        <div id="mp" class="mp-perso"><h3 class="info-hp-mp" id="mp-player"></h3></div>  
     </div>    
 </body>
 </html>

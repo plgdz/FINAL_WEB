@@ -1,5 +1,5 @@
 export class CarteHand {
-    constructor(card, container){
+    constructor(card, whom){
         this.id = card['id']
         this.uid = card['uid']
         this.cost = card['cost']
@@ -8,12 +8,15 @@ export class CarteHand {
         this.atk = card['atk']
         this.mechanics = card['mechanics']
 
-        this.initCard(container.id)
+        this.whom = 'card-' + whom
+
+        this.initCard()
     }
 
-    initCard(node){
+    initCard(){
+
         this.template = document.createElement('div')
-        this.template.className = 'card-hand'
+        this.template.className = 'card-hand ' + this.whom
 
         let cardHp = document.createElement('div')
         cardHp.className = 'card-hand-details card-hp'
@@ -36,11 +39,13 @@ export class CarteHand {
 
         let cardDesc = document.createElement('div')
         cardDesc.className = 'card-hand-desc'
-        this.template.append(cardDesc)
-        
-        document.getElementById(node).append(this.template)
+        this.template.append(cardDesc)  
     }
     
+    setContainer(node){
+        document.getElementById(node.id).append(this.template)
+    }
+
     setID(index){
         this.template.id = 'hand-' + index
     }

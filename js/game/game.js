@@ -1,53 +1,107 @@
 import {CarteHand} from './CarteHand.js'
 import { CarteOpp } from './carteOpp.js'
 
-window.addEventListener('load', () => {
+let init = true
 
-    let hand = []
-    let handOpp = []
+let actions = 0
 
-    let test = document.getElementById("cc1")
-    console.log(test)
+let hand = []
+let deck = []
+let sizeHand = 0
 
-    let data = {
-        "id":4,
-        "cost":2,
-        "hp":3,
-        "atk":2,
-        "mechanics":["caca", 'pipi'],
-        "uid":3,
-        "baseHP":3
+let hand1 = 0
+
+let handOpp = []
+let deckOpp = []
+
+let handOppSize = 0
+let sizeDeckOpp = 0
+
+let hpOpp = document.querySelector('#hp-opp')
+let mpOpp = document.querySelector('#mp-opp')
+
+let hpPlayer = document.querySelector('#hp-player')
+let mpPlayer = document.querySelector('#mp-player')
+
+let boardPlayer = document.querySelector('#board-player')
+let boardOpp = document.querySelector('#board-opp')
+
+const state = () => {
+    fetch("ajax-state.php", {   // Il faut créer cette page et son contrôleur appelle 
+ method : "POST"        // l’API (games/state)
+    })
+.then(response => response.json())
+.then(data => {
+    console.log(data)
+
+    if (typeof data !== "object") {
+        console.log('ERROR : ' + data)
+
+        if (data == 'LAST_GAME_WON' || data == "LAST_GAME_LOST") {
+            console.log('PARTIE TERMINEE')
+        }
+    } 
+    else if (init){
+        sizeHand = data['hand'].length
+        handOppSize = data['opponent']['handSize']
+
+        console.log(sizeHand)
+        console.log(handOppSize)
+
+        data['hand'].forEach(cardData => {
+            let card = new CarteHand(cardData, 'player')
+            if (3 >= hand1) {
+                card.setContainer(document.getElementById("cc1"))
+                hand1 += 1
+            } else {
+                card.setContainer(document.getElementById("cc2"))
+            }
+            hand.push(card)
+        });
+        playerCardMove()
+
+        data['opponent']['board'].forEach(cardData => {
+            oppCardPlayed(cardData)
+            sizeDeckOpp += 1
+        })
+
+        for (let i = 0; i < handOppSize; i++) {
+            handOpp.push(new CarteOpp())
+        }
+        init = false       
+    } 
+    else {
+        init = false
+        if ( data['opponent']['board'].length > sizeDeckOpp) {
+            oppCardPlayed(data['opponent']['board'].pop())
+            sizeDeckOpp += 1
+        }
     }
 
-    hand.push(new CarteHand(data, test))
-    hand.push(new CarteHand(data, test))
-    hand.push(new CarteHand(data, test))
+    setTimeout(state, 1000); // Attendre 1 seconde avant de relancer l’appel
+    })
+}
 
-    handOpp.push(new CarteOpp())
-    handOpp.push(new CarteOpp())
-    handOpp.push(new CarteOpp())
-    handOpp.push(new CarteOpp())
-    handOpp.push(new CarteOpp())
-    handOpp.push(new CarteOpp())
-
-    let boardPlayer = document.querySelector('#board-player')
-    
+const playerCardMove = () => {
     hand.forEach(card => {
         let c = card.getTemplate()
-        setIDs()
-
-        console.log(c.id)
+        
+        // Faire une func a part
+        let index = 0
+        hand.forEach(card => {
+            card.setID(index)
+            index++
+        });
 
         Draggable.create('#' + c.id, {
             bounds: document.querySelector('#body'),
-            onClick: function () {
-                console.log(glow)
-                boardPlayer.style.boxShadow = "0 0 50px 15px red"
-            },
-            onRelease: function () {
-                boardPlayer.style.boxShadow = "0"
+            onDrag: function () {
+                
+                boardPlayer.style.boxShadow = "0 0 5px 5px #7c725b41"
             },
             onDragEnd: function () {
+                c.style.scale = '1'
+                boardPlayer.style.boxShadow = "none"
                 let hit = this.hitTest(boardPlayer)
                 
                 if (!hit) {
@@ -60,21 +114,35 @@ window.addEventListener('load', () => {
                 }
             }
         })
-
-        c.addEventListener('click', () => {
-            console.log(card.getCardInfo())
-            hand.pop()
-            console.log(hand)
-        })
     });
+}
 
-    function setIDs() {
-        let index = 0
-        hand.forEach(card => {
-            card.setID(index)
-            index++
-        });
+const oppCardPlayed = (cardOppData) => {
+    let c = new CarteHand(cardOppData, 'board-opp')
+
+    try {
+        let playedOpp = handOpp.pop() 
+        let card = playedOpp.getTemplate()
+
+        gsap.to(card, {y:200, duration: 1})
+        gsap.to(card, {
+            rotationY: 360,
+            scale:2,
+            opacity: 0,
+            duration: 1,
+            onComplete: function () {
+            card.remove()
+            c.setContainer(boardOpp)
+        }})
+    } catch (error) {
+        c.setContainer(boardOpp)
     }
+    
+}
 
-})
+window.addEventListener("load", () => {
+    
+    setTimeout(state, 1000); // Appel initial (attendre 1 seconde)
+});
+
 
