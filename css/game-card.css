@@ -15,7 +15,7 @@
     border-radius: 5px;
     margin-left: 2%;
     height: 80%;
-    width: 15%;
+    width: 20%;
 }
 
 .card-hand:hover{
@@ -56,6 +56,10 @@
     width: 90%;
     height: 60%;
     background-color: black;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
 }
 
 .card-hand-desc {

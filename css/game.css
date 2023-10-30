@@ -18,8 +18,7 @@ body{
     transform: translate(-50%, -60%);
     height: 60vh;
     width: 70vw;
-    background-color: #ffffff2c;
-    /* opacity: .3; */
+    background-color: #ffffff0e;
     display: flex;
     flex-direction: column;
     justify-content: space-around; 
@@ -108,7 +107,7 @@ body{
     position: absolute;
     width: 50px;
     height: 50px;
-    background-color: rgba(255, 0, 0, 0.123);
+    background-color: rgba(255, 0, 0);
     transform: rotate(45deg);
 }
      
@@ -157,7 +156,6 @@ body{
 #info-opponent{
     height: 10vh;
     width: 100vw;
-    background-color: aqua;
     position: fixed;
 }
 
@@ -174,17 +172,18 @@ body{
 .info-hp-mp {
     position: absolute;
     z-index: 99999;
-    background-color: aquamarine;
     display: block;
     color: #fff;
-    font-size: medium;
+    font-size: 2rem;
     text-align: center;
-    top: 50%;
+    top: 20%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
 .nb-health{
+    top: -31%;
+    LEFT: 25%;
     transform: rotate(-45deg);
 }
 
@@ -196,7 +195,7 @@ body{
     transform: translate(-50%, -50%);
     height: 90%;
     width: 30%;
-    background-color: #335c40;
+
     display: flex;
     align-items: center;
 }

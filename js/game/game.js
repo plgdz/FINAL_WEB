@@ -28,71 +28,94 @@ let boardOpp = document.querySelector('#board-opp')
 
 const state = () => {
     fetch("ajax-state.php", {   // Il faut créer cette page et son contrôleur appelle 
- method : "POST"        // l’API (games/state)
+        method : "POST"        // l’API (games/state)
     })
-.then(response => response.json())
-.then(data => {
+    .then(response => response.json())
+    .then(data => {
     console.log(data)
+    
+        if (typeof data !== "object") {
+            console.log('ERROR : ' + data)
 
-    if (typeof data !== "object") {
-        console.log('ERROR : ' + data)
-
-        if (data == 'LAST_GAME_WON' || data == "LAST_GAME_LOST") {
-            console.log('PARTIE TERMINEE')
-        }
-    } 
-    else if (init){
-        sizeHand = data['hand'].length
-        handOppSize = data['opponent']['handSize']
-
-        console.log(sizeHand)
-        console.log(handOppSize)
-
-        data['hand'].forEach(cardData => {
-            let card = new CarteHand(cardData, 'player')
-            if (3 >= hand1) {
-                card.setContainer(document.getElementById("cc1"))
-                hand1 += 1
-            } else {
-                card.setContainer(document.getElementById("cc2"))
+            if (data == 'LAST_GAME_WON' || data == "LAST_GAME_LOST") {
+                console.log('PARTIE TERMINEE')
             }
-            hand.push(card)
-        });
-        playerCardMove()
+        } 
+        else if (init){
+            hpOpp.innerHTML = data['opponent']['hp']
+            mpOpp.innerHTML = data['opponent']['mp']
 
-        data['opponent']['board'].forEach(cardData => {
-            oppCardPlayed(cardData)
-            sizeDeckOpp += 1
-        })
+            hpPlayer.innerHTML = data['hp']
+            mpPlayer.innerHTML = data['mp']
 
-        for (let i = 0; i < handOppSize; i++) {
-            handOpp.push(new CarteOpp())
+            sizeHand = data['hand'].length
+            handOppSize = data['opponent']['handSize']
+
+            console.log(sizeHand)
+            console.log(handOppSize)
+
+            data['hand'].forEach(cardData => {
+                let card = new CarteHand(cardData, 'player')
+                if (3 >= hand1) {
+                    card.setContainer(document.getElementById("cc1"))
+                    hand1 += 1
+                } else {
+                    card.setContainer(document.getElementById("cc2"))
+                }
+                hand.push(card)
+            });
+
+            playerCardMove()
+
+            data['opponent']['board'].forEach(cardData => {
+                oppCardPlayed(cardData)
+                deckOpp.append(cardData)
+                sizeDeckOpp += 1
+            })
+
+            for (let i = 0; i < handOppSize; i++) {
+                handOpp.push(new CarteOpp())
+            }
+            init = false       
+        } 
+        else {
+            hpOpp.innerHTML = data['opponent']['hp']
+            mpOpp.innerHTML = data['opponent']['mp']
+
+            hpPlayer.innerHTML = data['hp']
+            mpPlayer.innerHTML = data['mp']
+
+            init = false
+            if ( data['opponent']['board'].length > sizeDeckOpp) {
+                oppCardPlayed(data['opponent']['board'].pop())
+                deckOpp.append(data['opponent']['board'].pop())
+                sizeDeckOpp += 1
+            }
         }
-        init = false       
-    } 
-    else {
-        init = false
-        if ( data['opponent']['board'].length > sizeDeckOpp) {
-            oppCardPlayed(data['opponent']['board'].pop())
-            sizeDeckOpp += 1
-        }
-    }
 
-    setTimeout(state, 1000); // Attendre 1 seconde avant de relancer l’appel
+        setTimeout(state, 1000); // Attendre 1 seconde avant de relancer l’appel
     })
+}
+
+const action = (formData) => {
+    fetch("ajax-action.php", {   // Il faut créer cette page et son contrôleur appelle 
+        method : "POST",       // l’API (games/state)
+        data : formData
+    })
+    .then(response => response.json())
+    .then(data => { 
+
+    })
+}
+
+const defHitBox = () => {
+
 }
 
 const playerCardMove = () => {
     hand.forEach(card => {
         let c = card.getTemplate()
-        
-        // Faire une func a part
-        let index = 0
-        hand.forEach(card => {
-            card.setID(index)
-            index++
-        });
-
+    
         Draggable.create('#' + c.id, {
             bounds: document.querySelector('#body'),
             onDrag: function () {
@@ -119,7 +142,6 @@ const playerCardMove = () => {
 
 const oppCardPlayed = (cardOppData) => {
     let c = new CarteHand(cardOppData, 'board-opp')
-
     try {
         let playedOpp = handOpp.pop() 
         let card = playedOpp.getTemplate()
