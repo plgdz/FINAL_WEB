@@ -297,7 +297,8 @@ const state = () => {
         } 
         else {
             actualizeHpMp(data)
-            console.log(boardOpp)
+            // DEBUG -------------- TO DELETE -----------------------
+            // console.log(boardOpp)
             // console.log(data['opponent']['board'])
 
             // Check if the opponent played a card on the board
@@ -324,7 +325,7 @@ const state = () => {
 
         }
 
-        setTimeout(state, 10000); // Attendre 1 seconde avant de relancer l’appel
+        setTimeout(state, 1000); // Attendre 1 seconde avant de relancer l’appel
     })
 }
 
@@ -380,7 +381,6 @@ const playerCardPlayedBoard = (card) => {
             c.style = ''
         }
     })
-    console.log('Draggable created for ' + c.id)
     sizeBoardPlayer += 1
 }
 
@@ -392,7 +392,7 @@ const playerCardSetDragBoard = (cardPlayer) => {
     boardOpp.forEach(cardOpp => {
         hitList.push(document.getElementById(cardOpp.getId()))
     })
-    console.log(hitList)
+    // console.log(hitList) //------DEBUG TO DELETE-----------------------------------------
 
     // Set the card on the board draggable
     Draggable.create('#'+c.id, {
