@@ -1,6 +1,7 @@
 import {CarteHand} from './CarteHand.js'
 import { CarteOpp } from './carteOpp.js'
 
+let delay = 1000
 let init = true
 
 let actions = 0
@@ -26,265 +27,267 @@ let mpPlayer = document.querySelector('#mp-player')
 let bdPlayer = document.querySelector('#board-player')
 let bdOpp = document.querySelector('#board-opp')
 
+
+
 const state = () => {
     fetch("ajax-state.php", {   // Il faut créer cette page et son contrôleur appelle 
         method : "POST"        // l’API (games/state)
     })
     .then(response => response.json())
     .then(data => {
-        data = {
-            "remainingTurnTime": 5,
-            "heroPowerAlreadyUsed": false,
-            "yourTurn": true,
-            "hp": 2,
-            "maxHp": 30,
-            "heroClass": "Rogue",
-            "talent": "ExtraCard",
-            "mp": 6,
-            "maxMp": 6,
-            "hand": [
-              {
-                "id": 13,
-                "cost": 3,
-                "hp": 3,
-                "atk": 3,
-                "mechanics": [
-                  "Taunt"
-                ],
-                "dedicated": "",
-                "uid": 2,
-                "baseHP": 3
-              },
-              {
-                "id": 71,
-                "cost": 1,
-                "hp": 1,
-                "atk": 1,
-                "mechanics": [
-                  "Deathrattle : Deal 2 to the opponent's hero"
-                ],
-                "dedicated": "",
-                "uid": 3,
-                "baseHP": 1
-              },
-              {
-                "id": 56,
-                "cost": 4,
-                "hp": 3,
-                "atk": 2,
-                "mechanics": [
-                  "Taunt",
-                  "Battlecry : Spawn a 2/1 charge minion"
-                ],
-                "dedicated": "ShortyLogos (2ième place, H2022)",
-                "uid": 4,
-                "baseHP": 3
-              },
-              {
-                "id": 33,
-                "cost": 10,
-                "hp": 1,
-                "atk": 1,
-                "mechanics": [
-                  "Battlecry : Destroy all minions"
-                ],
-                "dedicated": "",
-                "uid": 5,
-                "baseHP": 1
-              },
-              {
-                "id": 2,
-                "cost": 1,
-                "hp": 2,
-                "atk": 1,
-                "mechanics": [
-                  "Taunt"
-                ],
-                "dedicated": "",
-                "uid": 6,
-                "baseHP": 2
-              },
-              {
-                "id": 23,
-                "cost": 5,
-                "hp": 1,
-                "atk": 3,
-                "mechanics": [
-                  "Battlecry : Spawn 2 minions"
-                ],
-                "dedicated": "",
-                "uid": 7,
-                "baseHP": 1
-              },
-              {
-                "id": 64,
-                "cost": 10,
-                "hp": 7,
-                "atk": 7,
-                "mechanics": [
-                  "Deathrattle : Spawn a 7/7 card with taunt"
-                ],
-                "dedicated": "",
-                "uid": 8,
-                "baseHP": 7
-              },
-              {
-                "id": 41,
-                "cost": 5,
-                "hp": 3,
-                "atk": 2,
-                "mechanics": [
-                  "Battlecry : Destroy a random enemy minion"
-                ],
-                "dedicated": "cbouv (2ième place, A2019)",
-                "uid": 9,
-                "baseHP": 3
-              }
-            ],
-            "board": [],
-            "remainingCardsCount": 20,
-            "welcomeText": "Hey",
-            "opponent": {
-              "username": "Assassin-AI",
-              "heroClass": "Rogue",
-              "talent": "SpawnMinion",
-              "trophyCount": 0,
-              "winCount": 0,
-              "lossCount": 0,
-              "hp": 30,
-              "maxHp": 30,
-              "mp": 3,
-              "maxMp": 6,
-              "board": [
-                {
-                  "id": 1,
-                  "cost": 0,
-                  "hp": 2,
-                  "atk": 1,
-                  "mechanics": [
-                    "Charge",
-                    "Taunt"
-                  ],
-                  "dedicated": "",
-                  "uid": 63,
-                  "baseHP": 2,
-                  "state": "IDLE"
-                },
-                {
-                  "id": 1,
-                  "cost": 0,
-                  "hp": 1,
-                  "atk": 0,
-                  "mechanics": [
-                    "Battlecry : Get 1 crystal (this turn only)"
-                  ],
-                  "dedicated": "",
-                  "uid": 62,
-                  "baseHP": 1,
-                  "state": "IDLE"
-                },
-                {
-                  "id": 52,
-                  "cost": 2,
-                  "hp": 2,
-                  "atk": 2,
-                  "mechanics": [
-                    "Charge",
-                    "Battlecry : Gain +1/+1 for each 1 attack minion your control"
-                  ],
-                  "dedicated": "",
-                  "uid": 35,
-                  "baseHP": 2,
-                  "state": "IDLE"
-                },
-                {
-                  "id": 1,
-                  "cost": 0,
-                  "hp": 1,
-                  "atk": 1,
-                  "mechanics": [
-                    "Charge"
-                  ],
-                  "dedicated": "",
-                  "uid": 64,
-                  "baseHP": 1,
-                  "state": "IDLE"
-                },
-                {
-                  "id": 90,
-                  "cost": 3,
-                  "hp": 3,
-                  "atk": 2,
-                  "mechanics": [
-                    "Charge"
-                  ],
-                  "dedicated": "",
-                  "uid": 33,
-                  "baseHP": 3,
-                  "state": "IDLE"
-                },
-                {
-                  "id": 91,
-                  "cost": 4,
-                  "hp": 1,
-                  "atk": 1,
-                  "mechanics": [
-                    "Charge",
-                    "Taunt",
-                    "Battlecry : Add a random card to your hand"
-                  ],
-                  "dedicated": "",
-                  "uid": 34,
-                  "baseHP": 1,
-                  "state": "IDLE"
-                },
-                {
-                  "id": 1,
-                  "cost": 0,
-                  "hp": 1,
-                  "atk": 1,
-                  "mechanics": [
-                    "Charge"
-                  ],
-                  "dedicated": "",
-                  "uid": 66,
-                  "baseHP": 1,
-                  "state": "IDLE"
-                }
-              ],
-              "handSize": 7,
-              "remainingCardsCount": 21,
-              "welcomeText": "Quick as an arrow"
-            },
-            "latestActions": [
-              {
-                "id": 38,
-                "from": "Assassin-AI",
-                "action": {
-                  "type": "HERO_POWER"
-                }
-              },
-              {
-                "id": 39,
-                "from": "Assassin-AI",
-                "action": {
-                  "type": "ATTACK",
-                  "uid": 66,
-                  "targetuid": null
-                }
-              },
-              {
-                "id": 40,
-                "from": "Assassin-AI",
-                "action": {
-                  "type": "END_TURN"
-                }
-              }
-            ]
-          }
+      delay = 1000
+        // data = {
+        //     "remainingTurnTime": 5,
+        //     "heroPowerAlreadyUsed": false,
+        //     "yourTurn": true,
+        //     "hp": 2,
+        //     "maxHp": 30,
+        //     "heroClass": "Rogue",
+        //     "talent": "ExtraCard",
+        //     "mp": 6,
+        //     "maxMp": 6,
+        //     "hand": [
+        //       {
+        //         "id": 13,
+        //         "cost": 3,
+        //         "hp": 3,
+        //         "atk": 3,
+        //         "mechanics": [
+        //           "Taunt"
+        //         ],
+        //         "dedicated": "",
+        //         "uid": 2,
+        //         "baseHP": 3
+        //       },
+        //       {
+        //         "id": 71,
+        //         "cost": 1,
+        //         "hp": 1,
+        //         "atk": 1,
+        //         "mechanics": [
+        //           "Deathrattle : Deal 2 to the opponent's hero"
+        //         ],
+        //         "dedicated": "",
+        //         "uid": 3,
+        //         "baseHP": 1
+        //       },
+        //       {
+        //         "id": 56,
+        //         "cost": 4,
+        //         "hp": 3,
+        //         "atk": 2,
+        //         "mechanics": [
+        //           "Taunt",
+        //           "Battlecry : Spawn a 2/1 charge minion"
+        //         ],
+        //         "dedicated": "ShortyLogos (2ième place, H2022)",
+        //         "uid": 4,
+        //         "baseHP": 3
+        //       },
+        //       {
+        //         "id": 33,
+        //         "cost": 10,
+        //         "hp": 1,
+        //         "atk": 1,
+        //         "mechanics": [
+        //           "Battlecry : Destroy all minions"
+        //         ],
+        //         "dedicated": "",
+        //         "uid": 5,
+        //         "baseHP": 1
+        //       },
+        //       {
+        //         "id": 2,
+        //         "cost": 1,
+        //         "hp": 2,
+        //         "atk": 1,
+        //         "mechanics": [
+        //           "Taunt"
+        //         ],
+        //         "dedicated": "",
+        //         "uid": 6,
+        //         "baseHP": 2
+        //       },
+        //       {
+        //         "id": 23,
+        //         "cost": 5,
+        //         "hp": 1,
+        //         "atk": 3,
+        //         "mechanics": [
+        //           "Battlecry : Spawn 2 minions"
+        //         ],
+        //         "dedicated": "",
+        //         "uid": 7,
+        //         "baseHP": 1
+        //       },
+        //       {
+        //         "id": 64,
+        //         "cost": 10,
+        //         "hp": 7,
+        //         "atk": 7,
+        //         "mechanics": [
+        //           "Deathrattle : Spawn a 7/7 card with taunt"
+        //         ],
+        //         "dedicated": "",
+        //         "uid": 8,
+        //         "baseHP": 7
+        //       },
+        //       {
+        //         "id": 41,
+        //         "cost": 5,
+        //         "hp": 3,
+        //         "atk": 2,
+        //         "mechanics": [
+        //           "Battlecry : Destroy a random enemy minion"
+        //         ],
+        //         "dedicated": "cbouv (2ième place, A2019)",
+        //         "uid": 9,
+        //         "baseHP": 3
+        //       }
+        //     ],
+        //     "board": [],
+        //     "remainingCardsCount": 20,
+        //     "welcomeText": "Hey",
+        //     "opponent": {
+        //       "username": "Assassin-AI",
+        //       "heroClass": "Rogue",
+        //       "talent": "SpawnMinion",
+        //       "trophyCount": 0,
+        //       "winCount": 0,
+        //       "lossCount": 0,
+        //       "hp": 30,
+        //       "maxHp": 30,
+        //       "mp": 3,
+        //       "maxMp": 6,
+        //       "board": [
+        //         {
+        //           "id": 1,
+        //           "cost": 0,
+        //           "hp": 2,
+        //           "atk": 1,
+        //           "mechanics": [
+        //             "Charge",
+        //             "Taunt"
+        //           ],
+        //           "dedicated": "",
+        //           "uid": 63,
+        //           "baseHP": 2,
+        //           "state": "IDLE"
+        //         },
+        //         {
+        //           "id": 1,
+        //           "cost": 0,
+        //           "hp": 1,
+        //           "atk": 0,
+        //           "mechanics": [
+        //             "Battlecry : Get 1 crystal (this turn only)"
+        //           ],
+        //           "dedicated": "",
+        //           "uid": 62,
+        //           "baseHP": 1,
+        //           "state": "IDLE"
+        //         },
+        //         {
+        //           "id": 52,
+        //           "cost": 2,
+        //           "hp": 2,
+        //           "atk": 2,
+        //           "mechanics": [
+        //             "Charge",
+        //             "Battlecry : Gain +1/+1 for each 1 attack minion your control"
+        //           ],
+        //           "dedicated": "",
+        //           "uid": 35,
+        //           "baseHP": 2,
+        //           "state": "IDLE"
+        //         },
+        //         {
+        //           "id": 1,
+        //           "cost": 0,
+        //           "hp": 1,
+        //           "atk": 1,
+        //           "mechanics": [
+        //             "Charge"
+        //           ],
+        //           "dedicated": "",
+        //           "uid": 64,
+        //           "baseHP": 1,
+        //           "state": "IDLE"
+        //         },
+        //         {
+        //           "id": 90,
+        //           "cost": 3,
+        //           "hp": 3,
+        //           "atk": 2,
+        //           "mechanics": [
+        //             "Charge"
+        //           ],
+        //           "dedicated": "",
+        //           "uid": 33,
+        //           "baseHP": 3,
+        //           "state": "IDLE"
+        //         },
+        //         {
+        //           "id": 91,
+        //           "cost": 4,
+        //           "hp": 1,
+        //           "atk": 1,
+        //           "mechanics": [
+        //             "Charge",
+        //             "Taunt",
+        //             "Battlecry : Add a random card to your hand"
+        //           ],
+        //           "dedicated": "",
+        //           "uid": 34,
+        //           "baseHP": 1,
+        //           "state": "IDLE"
+        //         },
+        //         {
+        //           "id": 1,
+        //           "cost": 0,
+        //           "hp": 1,
+        //           "atk": 1,
+        //           "mechanics": [
+        //             "Charge"
+        //           ],
+        //           "dedicated": "",
+        //           "uid": 66,
+        //           "baseHP": 1,
+        //           "state": "IDLE"
+        //         }
+        //       ],
+        //       "handSize": 7,
+        //       "remainingCardsCount": 21,
+        //       "welcomeText": "Quick as an arrow"
+        //     },
+        //     "latestActions": [
+        //       {
+        //         "id": 38,
+        //         "from": "Assassin-AI",
+        //         "action": {
+        //           "type": "HERO_POWER"
+        //         }
+        //       },
+        //       {
+        //         "id": 39,
+        //         "from": "Assassin-AI",
+        //         "action": {
+        //           "type": "ATTACK",
+        //           "uid": 66,
+        //           "targetuid": null
+        //         }
+        //       },
+        //       {
+        //         "id": 40,
+        //         "from": "Assassin-AI",
+        //         "action": {
+        //           "type": "END_TURN"
+        //         }
+        //       }
+        //     ]
+        //   }
     console.log(data)
    
-    
         if (typeof data !== "object") {
             console.log('ERROR : ' + data)
 
@@ -296,50 +299,16 @@ const state = () => {
            initDisplay(data)        
         } 
         else {
-            actualizeHpMp(data)
-            // DEBUG -------------- TO DELETE -----------------------
-            // console.log(boardOpp)
-            // console.log(data['opponent']['board'])
-
-            // Check if the opponent played a card on the board
-            if ( data['opponent']['board'].length > sizeBoardOpp) {
-                oppCardPlayed(data['opponent']['board'].pop())  // Call the opponent played card func (animation + data storage)
-                sizeBoardOpp += 1                               // Actualize the opponent board size
-            }
-            // Check if the opponent lost a card on the board
-            else if (data['opponent']['board'].length < sizeBoardOpp) {
-                removeOppCardPlayed(getDiffElem(data['opponent']['board'], boardOpp))
-                sizeBoardOpp -= 1 
-            }
-
-            // if new card in players hand, add Draggable to this card
-            if (data['hand'].length > sizeHandPlayer) {
-                sizeHandPlayer += 1
-                playerCardPlayedBoard(new CarteHand(data['hand'].pop()))
-            }
-
-            // If card destroyed from players board, remove it from the board display and list
-            if (data['board'].length < sizeBoardPlayer){
-                removePlayerCardDestroyed(getDiffElem(data['board'], boardPlayer))
-            }
-
+            updateDisplay(data)
         }
 
-        setTimeout(state, 1000); // Attendre 1 seconde avant de relancer l’appel
+        setTimeout(state, delay); // Attendre 1 seconde avant de relancer l’appel
     })
 }
 
-const action = (formData) => {
-    // fetch("ajax-action.php", {   // Il faut créer cette page et son contrôleur appelle 
-    //     method : "POST",       // l’API (games/state)
-    //     data : formData
-    // })
-    // .then(response => response.json())
-    // .then(data => { 
-        
-    // })
-}
 
+
+// ------------- SET DRAGGABLE ------------------------------------------------
 const playerCardPlayedBoard = (card) => {
     
     let c = card.getTemplate()
@@ -357,31 +326,13 @@ const playerCardPlayedBoard = (card) => {
             if (!hit) {
                 gsap.to(this.target, {x: 0, y:0, duration: .5, ease: Back.easeOut(1.7)})
             } else {
-                // remove card from hand put it in board
-                document.getElementById(c.id).remove()
-                bdPlayer.append(c)
-                boardPlayer.push(card)
-
-                // reset the position of the div after the drag + reset GSAP origin
-                c.style.transform = "translate(" + 0 +","+0+')'
-                gsap.set('#'+c.id, {x: 0, y: 0})
-
-                // set the newTab id for the card played (for newTab draggable in playerCardSetDragBoard)
-                Draggable.get(this.target).kill()
-                card.setIdBoard()
-
-                // set the new draggable for the moved card
-                playerCardSetDragBoard(card)
-
-                // actualize the hand list and counter
-                handPlayer = handPlayer.filter(cr => cr.uid != card.uid)
-                sizeHandPlayer -= 1
+                actionPlayerPlay(card)
             }
             // clear style of card
             c.style = ''
         }
     })
-    sizeBoardPlayer += 1
+    
 }
 
 const playerCardSetDragBoard = (cardPlayer) => {
@@ -397,45 +348,150 @@ const playerCardSetDragBoard = (cardPlayer) => {
     // Set the card on the board draggable
     Draggable.create('#'+c.id, {
         bounds: document.querySelector('#body'),
+        onDrag: () => {
+          gsap.to('#'+c.id, {scale: .5}) 
+        },
         onDragEnd: () => {
             hitList.forEach(hitZone => {
                 if (Draggable.get('#'+c.id).hitTest(hitZone)) {
-                    console.log(hitZone)
+                    let targetUid = hitZone.id
+                    actionPlayerAttack(cardPlayer, targetUid.substring(1))
                 }
             })
-            gsap.to('#'+c.id, {x:0, y:0})                           
+
+            gsap.to('#'+c.id, {x:0, y:0, scale:1})                           
         }
     })
     
 }
 
-const playerCardPlayedAttack = () => {
-
-}
-
+// ------------- ANIMATION CARD OPPONENT --------------------------------------
 const oppCardPlayed = (cardOppData) => {
-    let c = new CarteHand(cardOppData, 'board-opp')
-    boardOpp.push(c)
-    try {
-        let playedOpp = handOpp.pop() 
-        let card = playedOpp.getTemplate()
+  let c = new CarteHand(cardOppData, 'board-opp')
+  boardOpp.push(c)
+  try {
+      let playedOpp = handOpp.pop() 
+      let card = playedOpp.getTemplate()
 
-        gsap.to(card, {y:200, duration: 1})
-        gsap.to(card, {
-            rotationY: 360,
-            scale:2,
-            opacity: 0,
-            duration: 1,
-            onComplete: function () {
-            card.remove()
-            c.setContainer(bdOpp)
-        }})
-    } catch (error) {
-        c.setContainer(bdOpp)
-    }
+      gsap.to(card, {y:200, duration: 1})
+      gsap.to(card, {
+          rotationY: 360,
+          scale:2,
+          opacity: 0,
+          duration: 1,
+          onComplete: function () {
+          card.remove()
+          c.setContainer(bdOpp)
+      }})
+  } catch (error) {
+      c.setContainer(bdOpp)
+  }
     
 }
 
+// ------------- PLAYER ACTION -------------------------------------------------
+const actionPlayerPlay = (card) => {
+  // Increase delay for state by 1sec
+  delay += 1000
+
+  let formData = new FormData()
+  formData.append("type", "PLAY")
+  formData.append("uid", card.uid)
+
+  fetch("ajax-action.php", {   
+    method : 'POST',
+    body : formData
+  })
+  .then(response => response.json())
+  .then(data => { 
+    let c = card.getTemplate()
+
+    if (typeof data !== "object") {
+      console.log('ERROR : ' + data)
+      gsap.to('#'+c.id, {x: 0, y: 0})
+      // c.style = ''
+    } else {
+      updateDisplay(data)
+
+      // remove card from hand put it in board
+      document.getElementById(c.id).remove()
+      bdPlayer.append(c)
+      boardPlayer.push(card)
+
+      // reset the position of the div after the drag + reset GSAP origin
+      c.style.transform = "translate(" + 0 +","+0+')'
+      gsap.set('#'+c.id, {x: 0, y: 0})
+
+      // set the newTab id for the card played (for newTab draggable in playerCardSetDragBoard)
+      Draggable.get('#'+c.id).kill()
+      card.setIdBoard()
+
+      // set the new draggable for the moved card
+      playerCardSetDragBoard(card)
+
+      // actualize the hand list and counter
+      handPlayer = handPlayer.filter(cr => cr.uid != card.uid)
+      sizeHandPlayer -= 1
+      sizeBoardPlayer += 1
+    }
+  })
+  
+}
+
+const actionPlayerEndTurn = () => {
+  // Increase delay for state by 1sec
+  delay += 1000
+
+  let formData = new FormData()
+  formData.append("type", "END_TURN")
+
+  fetch("ajax-action.php", {   
+    method : 'POST',
+    body : formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (typeof data !== "object") {
+      console.log('ERROR : ' + data)
+    } else {
+      updateDisplay(data)
+    }
+  })
+
+}
+
+const actionPlayerAttack = (card, targetUid) => {
+  console.log('ATTTTTTTTACK')
+  // Increase delay for state by 1sec
+  delay += 1000
+
+  console.log(card)
+  console.log(card.uid)
+  
+  let formData = new FormData()
+  formData.append("type", "ATTACK")
+  formData.append("uid", card.uid)
+  formData.append("targetuid", targetUid)
+
+  fetch("ajax-action.php", {   
+    method : 'POST',
+    body : formData
+  })
+  .then(response => response.json())
+  .then(data => { 
+    if (typeof data !== "object") {
+      console.log('ERROR : ' + data)
+      
+    } else {
+      console.log('ATTACK WOOOOORKED')
+      updateDisplay(data)
+      
+      
+    }
+  })
+}
+
+// ------------------------------------------------------------------------------
 const getDiffElem = (newTab, oldTab) => {
     // Compare the newTab and the old opponent board to find the removed card
     oldTab.forEach(cardSaved => {
@@ -468,6 +524,8 @@ const removePlayerCardDestroyed = (index) => {
     boardPlayer.splice(index, 1)
 }
 
+
+// ----------------- DISPLAY UPDATES -----------------------------
 const initDisplay = (data) => {
     actualizeHpMp(data)
 
@@ -515,6 +573,34 @@ const initDisplay = (data) => {
     init = false
 }
 
+const updateDisplay = (data) => {
+  actualizeHpMp(data)
+            
+  // Check if the opponent played a card on the board
+  if ( data['opponent']['board'].length > sizeBoardOpp) {
+      oppCardPlayed(data['opponent']['board'].pop())  // Call the opponent played card func (animation + data storage)
+      sizeBoardOpp += 1                               // Actualize the opponent board size
+  }
+  // Check if the opponent lost a card on the board
+  else if (data['opponent']['board'].length < sizeBoardOpp) {
+      removeOppCardPlayed(getDiffElem(data['opponent']['board'], boardOpp))
+      sizeBoardOpp -= 1 
+  }
+
+  // if new card in players hand, add Draggable to this card
+  if (data['hand'].length > sizeHandPlayer) {
+      sizeHandPlayer += 1
+      playerCardPlayedBoard(new CarteHand(data['hand'].pop()))
+  }
+
+  // If card destroyed from players board, remove it from the board display and list
+  if (data['board'].length < sizeBoardPlayer){
+      console.log('BREAK POINT //// ' + sizeBoardPlayer)
+      removePlayerCardDestroyed(getDiffElem(data['board'], boardPlayer))
+  }
+}
+
+
 const actualizeHpMp = (data) => {
     // display hp and mp for both players
     hpOpp.innerHTML = data['opponent']['hp']
@@ -525,6 +611,10 @@ const actualizeHpMp = (data) => {
 }
 
 window.addEventListener("load", () => {
+    // ----------------- STATIC ACTION -----------------------
+    document.querySelector('#end-turn').addEventListener('click', () => {
+      actionPlayerEndTurn()
+    })
     
     setTimeout(state, 1000); // Appel initial (attendre 1 seconde)
 });

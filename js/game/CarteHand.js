@@ -65,22 +65,9 @@ export class CarteHand {
         document.getElementById(node.id).append(this.template)
     }
 
-    getId(){
-        return this.template.id
-    }
+    getId(){ return this.template.id }
 
     getTemplate(){ return this.template }
-
-    getCardInfo(){
-        return {
-            'id' : this.id,
-            'uid' : this.uid ,
-            'cost' : this.cost,
-            'hp' : this.hp,
-            'cost' : this.atk,
-            'mechanics' : this.mechanics,
-        }
-    }
 
     setIdBoard() {
         // Set a new ID for the new board Dragabble instance 
