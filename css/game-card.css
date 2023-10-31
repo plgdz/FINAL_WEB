@@ -18,11 +18,11 @@
     width: 20%;
 }
 
-.card-hand:hover{
+/* .card-hand:hover{
     transform: translateY(-50%) scale(1.5);
     animation: .5s;
     z-index: 99;
-}
+} */
 
 .card-hand-details {
     height: 3vh;

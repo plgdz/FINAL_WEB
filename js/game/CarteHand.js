@@ -17,7 +17,7 @@ export class CarteHand {
 
         this.template = document.createElement('div')
         this.template.className = 'card-hand ' + this.whom
-        this.template.id = this.uid
+        this.template.id = 'h' + this.uid
 
         let cardHp = document.createElement('div')
         cardHp.className = 'card-hand-details card-hp'
@@ -45,7 +45,7 @@ export class CarteHand {
 
         if (this.mechanics.length > 0) {
             this.mechanics.forEach(mech => {
-                this.cardDesc.innerHTML += mech + '<br>'
+                cardDesc.innerHTML += mech + '<br>'
             });
 
             if (this.mechanics[0].includes('Battlecry')) { cardImg.style.backgroundImage = 'url("./images/assets/Battlecry.png")' }
@@ -65,8 +65,8 @@ export class CarteHand {
         document.getElementById(node.id).append(this.template)
     }
 
-    setID(index){
-        this.template.id = 'hand-' + index
+    getId(){
+        return this.template.id
     }
 
     getTemplate(){ return this.template }
@@ -80,5 +80,10 @@ export class CarteHand {
             'cost' : this.atk,
             'mechanics' : this.mechanics,
         }
+    }
+
+    setIdBoard() {
+        // Set a new ID for the new board Dragabble instance 
+        this.template.id = 'b'+this.uid
     }
 }
