@@ -461,7 +461,6 @@ const actionPlayerEndTurn = () => {
 }
 
 const actionPlayerAttack = (card, targetUid) => {
-  console.log('ATTTTTTTTACK')
   // Increase delay for state by 1sec
   delay += 1000
 
@@ -480,13 +479,11 @@ const actionPlayerAttack = (card, targetUid) => {
   .then(response => response.json())
   .then(data => { 
     if (typeof data !== "object") {
-      console.log('ERROR : ' + data)
+        console.log('ERROR : ' + data)
       
     } else {
-      console.log('ATTACK WOOOOORKED')
-      updateDisplay(data)
-      
-      
+        console.log('attack')
+        updateDisplay(data) 
     }
   })
 }
