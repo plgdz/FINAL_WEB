@@ -15,11 +15,22 @@
     <title>Lobby</title>
 </head>
 <body>
-    <div id="chat-container">
-        <iframe id="chat" onload="applyStyles(this)" 
-                src="https://magix.apps-de-cours.com/server/#/chat/<?= $data["key"] ?>">
-        </iframe>
+    <div id="main-left">
+        <div id="title">
+            <span class="letter L">L</span>
+            <span class="letter O">O</span>
+            <span class="letter B1">B</span>
+            <span class="letter B2">B</span>
+            <span class="letter Y">Y</span>
+        </div>
+
+        <div id="chat-container">
+            <iframe id="chat" onload="applyStyles(this)" 
+                    src="https://magix.apps-de-cours.com/server/#/chat/<?= $data["key"] ?>">
+            </iframe>
+        </div>
     </div>
+    
     
 
     <audio id="music">

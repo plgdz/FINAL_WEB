@@ -40,8 +40,11 @@ body{
     height: 20vh;
     background-color: #5C4033;
     display: flex;
-    align-items: center
+    align-items: center;
+    border-radius: 25px 25px 0 0;
+    /* background-image: url('../images/textures/wood.jpeg'); */
 }
+
 
 #cc1{
     position: relative;
@@ -58,6 +61,7 @@ body{
     background-color: rgba(124, 114, 91, 0.253);
     display: flex;
     align-items: center;
+    box-shadow: 5px 5px 2px #3131315d;
 }
 
 #btn-container{
@@ -90,6 +94,7 @@ body{
     width: 96%;
     background-color: #335c40;
     border-radius: 35vh 35vh 0 0;
+    box-shadow: 5px 5px #3131315d;
 }
 #power:hover{
     background-color: #3b5c33;
@@ -100,7 +105,7 @@ body{
     width: 96%;
     background-color: #40335c;
     border-radius:0 0 34vh 34vh;
-    
+    box-shadow: 5px 5px #3131315d;
 }
 
 #health{
@@ -109,6 +114,7 @@ body{
     height: 50px;
     background-color: rgba(255, 0, 0);
     transform: rotate(45deg);
+    box-shadow: 3px -5px 1px #292929a9;
 }
      
 #health:before{
@@ -131,6 +137,7 @@ body{
     content: '';
     border-radius: 50%;
     background-color: rgba(255, 0, 0);
+    box-shadow: 1px -3px 1px #29292977;
 }
 
 .health-perso {
@@ -146,6 +153,7 @@ body{
     position: absolute;
 
     transform: translateY(-50%);
+    box-shadow: 3px 3px 1px #292929a9;
 }
 
 .mp-perso{
@@ -169,6 +177,20 @@ body{
     top: 50%;
 }
 
+#avatar-opp{
+    height:20vh;
+    width: 20vh;
+    border-radius: 50%;
+    position: relative;
+    top: 25px;
+    left: 1%;
+    background-image: url('../images/assets/opp.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 5px solid rgb(40, 12, 59);
+}
+
 .info-hp-mp {
     position: absolute;
     z-index: 99999;
@@ -187,7 +209,6 @@ body{
     transform: rotate(-45deg);
 }
 
-
 #container-card-opp {
     position: relative;
     left: 50%;
@@ -195,7 +216,6 @@ body{
     transform: translate(-50%, -50%);
     height: 90%;
     width: 30%;
-
     display: flex;
     align-items: center;
 }

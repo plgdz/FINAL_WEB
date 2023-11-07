@@ -20,7 +20,8 @@
     <div id="info-opponent">
         <div id="health" class="health-opps"><h3 class="nb-health info-hp-mp" id="hp-opp"></h3></div>
         <div id="mp" class="mp-opps"><h3 class="info-hp-mp" id="mp-opp" ></h3></div>
-        <div id="container-card-opp" ></div>  
+        <div id="container-card-opp" ></div> 
+        <div id="avatar-opp"></div> 
     </div>
 
     <div id="board" >

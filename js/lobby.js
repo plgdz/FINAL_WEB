@@ -17,6 +17,8 @@ function popUpDojo() {
     let back = document.createElement("div")
     back.id = "dojo-menu-bg"
     back.style.backgroundColor = "white"
+    back.style.position = "absolute"
+    back.style.top = 0
     back.style.height = "100vh"
     back.style.width = "100vw"
     back.style.opacity = "0.3"
@@ -32,7 +34,6 @@ function popUpDojo() {
     container.style.left = "50%"
     container.style.transform = "translate(-50%, -50%)"
     container.style.display = "flex"
-    container.style.alignItems = "center"
     container.style.justifyContent = "space-around"
 
     let pvp = elemMenu("PVP", "JOUER")
