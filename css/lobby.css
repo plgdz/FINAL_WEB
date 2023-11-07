@@ -168,7 +168,7 @@ li{
   height: 40%;
   width: 37%;
   position: absolute;
-  top: 5vw;
+  top: 15vw;
   left: 5vw;
   padding: 5px;
   background-color: #252424;
@@ -201,4 +201,43 @@ button {
   top: 5vh;
   left: 5vw;
   background-color: #252424;
+}
+
+#title {
+  position: absolute;
+  font-size: 125px;
+  color: white;
+  top: 5vw;
+  left: 13vw;
+  border: 5px solid black;
+  padding: 0;
+  margin: 0;
+  height: max-content;
+  overflow: hidden;
+}
+
+
+
+@keyframes up {
+  0% {
+    transform: translateY(-100px);
+  }
+  100% {
+    transform: translateY(0px);
+
+  }
+}
+
+.L {
+  background-color: #3b5c33;
+  animation: up 5s linear forwards 0.1s;
+}
+.O {
+  animation: up 0.5s linear forwards 0.3s;
+}
+.B {
+  animation: up 0.5s linear forwards 0.5s;
+}
+.Y {
+  animation: up 0.5s linear forwards 1s;
 }

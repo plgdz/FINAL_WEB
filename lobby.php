@@ -11,10 +11,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/lobby.css">
     <script src="js/lobby.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TimelineLite.min.js"></script>
     <title>Lobby</title>
 </head>
 <body>
+    <div id="title">
+        <span class="letter L">L</span>
+        <span class="letter O">O</span>
+        <span class="letter B">B</span>
+        <span class="letter B">B</span>
+        <span class="letter Y">Y</span>
+    </div>
+
     <div id="chat-container">
         <iframe id="chat" onload="applyStyles(this)" 
                 src="https://magix.apps-de-cours.com/server/#/chat/<?= $data["key"] ?>">

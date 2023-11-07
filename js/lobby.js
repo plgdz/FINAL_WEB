@@ -2,7 +2,6 @@ let started = false
 let playing = false
 
 window.addEventListener("load", () => {
-    
 
     let arene = document.querySelector("#arene")
     let menu = document.querySelector("#burger-menu")
