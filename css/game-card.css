@@ -56,8 +56,8 @@
     width: 90%;
     height: 60%;
     background-color: black;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+     background-repeat: no-repeat;
+    /* background-attachment: fixed;  */
     background-position: center;
     background-size: cover;
 }

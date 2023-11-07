@@ -36,6 +36,7 @@ export class CarteHand {
 
         let cardImg = document.createElement('div')
         cardImg.className = 'card-hand-img'
+        cardImg.style.backgroundColor = '#f0a02d'
         this.template.append(cardImg)
 
         let cardDesc = document.createElement('div')

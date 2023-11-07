@@ -35,8 +35,7 @@ const state = () => {
     })
     .then(response => response.json())
     .then(data => {
-      delay = 2000
-        
+        delay = 1000
         console.log(data)
    
         if (typeof data !== "object") {

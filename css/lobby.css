@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,500;1,700&display=swap');
 
-
 body{
   padding: 0;
   margin:0;
@@ -11,20 +10,31 @@ body{
   background-size: cover;
 }
 
+#main-left{
+  height: 100vh;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
 #arene {
   position: absolute;
   height: 320px;
-  width: 280px;
+  width: 300px;
   right: 27%;
   top: 15%;
   animation: pulse 3s alternate infinite linear;
-  border: solid 3px rgb(0, 0, 0);
+  /* border: solid 3px rgb(0, 0, 0); */
+  background-image: url('../images/background/arene.png');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 #arene:hover{
   scale: 1.2;
   cursor: pointer;
-  border: solid 3px rgb(68, 68, 65);
+  /* border: solid 3px rgb(68, 68, 65); */
 
 }
 
@@ -165,15 +175,23 @@ li{
   } 
 
 #chat {
-  height: 40%;
-  width: 37%;
-  position: absolute;
+  height: 100%;
+  width: 100%;
+  /* position: absolute;
   top: 15vw;
-  left: 5vw;
+  left: 5vw; */
   padding: 5px;
   background-color: #252424;
   border: 3px solid #3a3838;
+  display: block;
 }
+
+#chat-container{
+  width: 80%;
+  height: 60%;
+  display: block;
+}
+
 button {
   text-decoration: none;
   list-style: none;
@@ -204,40 +222,51 @@ button {
 }
 
 #title {
-  position: absolute;
-  font-size: 125px;
-  color: white;
-  top: 5vw;
-  left: 13vw;
-  border: 5px solid black;
-  padding: 0;
-  margin: 0;
-  height: max-content;
+  width: 500px;
+  height: 120px;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  color: #f0a02d;
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 700;
 }
 
-
-
-@keyframes up {
-  0% {
-    transform: translateY(-100px);
-  }
-  100% {
-    transform: translateY(0px);
-
-  }
+.letter {
+  font-size: 130px;
+  line-height: 120px;
+  height: 100px;
+  transform: translateY(200px);
 }
 
 .L {
-  background-color: #3b5c33;
-  animation: up 5s linear forwards 0.1s;
+  animation: appear .2s forwards ease-out ;
 }
+
 .O {
-  animation: up 0.5s linear forwards 0.3s;
+  animation: appear .2s forwards .1s ease-out;
 }
-.B {
-  animation: up 0.5s linear forwards 0.5s;
+
+.B1 {
+  animation: appear .2s forwards .2s ease-out;
 }
+
+.B2 {
+  animation: appear .2s forwards .3s ease-out;
+}
+
 .Y {
-  animation: up 0.5s linear forwards 1s;
+  animation: appear .2s forwards .4s ease-out;
+}
+
+
+@keyframes appear {
+  0% {
+      opacity: 1;
+      transform: translateY(200px);
+  }
+  100% {
+      opacity: 1;
+      transform: translateY(0px);
+  }
 }
