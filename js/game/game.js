@@ -62,6 +62,15 @@ const state = () => {
 const playerCardPlayedBoard = (card) => {
     
     let c = card.getTemplate()
+
+    handPlayer.push(card)
+    if (3 >= hand1) {
+        card.setContainer(document.getElementById("cc1"))
+        hand1 += 1
+    } else {
+        card.setContainer(document.getElementById("cc2"))
+    }
+    sizeHandPlayer += 1  
     
     Draggable.create('#' + c.id, {
         bounds: document.querySelector('#body'),
@@ -105,6 +114,8 @@ const playerCardSetDragBoard = (cardPlayer) => {
                 if (Draggable.get('#'+c.id).hitTest(hitZone)) {
                     let targetUid = hitZone.id
                     actionPlayerAttack(cardPlayer, targetUid.substring(1))
+                } else if (Draggable.get('#'+c.id).hitTest(document.getElementById('#avatar-opp'))){
+                    actionPlayerAttack(cardPlayer, '0')
                 }
             })
 
@@ -162,6 +173,10 @@ const actionPlayerPlay = (card) => {
     } else {
       updateDisplay(data)
 
+        if (card.container == 'cc1') {
+        hand1 -= 1;
+        }
+
       // remove card from hand put it in board
       document.getElementById(c.id).remove()
       bdPlayer.append(c)
@@ -182,6 +197,8 @@ const actionPlayerPlay = (card) => {
       handPlayer = handPlayer.filter(cr => cr.uid != card.uid)
       sizeHandPlayer -= 1
       sizeBoardPlayer += 1
+
+
     }
   })
   
@@ -267,22 +284,13 @@ const initDisplay = (data) => {
     actualizeHpMp(data)
 
     // get hand size for both players
-    sizeHandPlayer = data['hand'].length
     handOppSize = data['opponent']['handSize']
 
     // -------------- PLAYER -----------------------------------------
     // Set display of player hand and store data in list handPlayer
     data['hand'].forEach(cardData => {
         let card = new CarteHand(cardData, 'player')
-        if (3 >= hand1) {
-            card.setContainer(document.getElementById("cc1"))
-            hand1 += 1
-        } else {
-            card.setContainer(document.getElementById("cc2"))
-        }
-        handPlayer.push(card)
         playerCardPlayedBoard(card)
-        sizeHandPlayer += 1    
     })
 
     // Set display of player board hand store data in 
@@ -327,9 +335,10 @@ const updateDisplay = (data) => {
     sizeBoardOpp -= 1 
   }
 
+  console.log( 'data hand ' +data['hand'].length )
+  console.log('player hand' + sizeHandPlayer)
   // if new card in players hand, add Draggable to this card
   if (data['hand'].length > sizeHandPlayer) {
-      sizeHandPlayer += 1
       playerCardPlayedBoard(new CarteHand(data['hand'].pop()))
   }
 
@@ -339,8 +348,29 @@ const updateDisplay = (data) => {
       getDiffElem(data['board'], boardPlayer)
       sizeBoardPlayer -= 1
   }
+
+  actualizeCardBoard(data)
 }
 
+const actualizeCardBoard = (data) => {
+    
+    console.log(boardOpp)
+    data['opponent']['board'].forEach(cardData => {
+        boardOpp.forEach(cardBoard => {
+            if (cardData.uid == cardBoard.uid){
+                cardBoard.update(cardData)
+            }
+        })
+    })
+
+    data['board'].forEach(cardData => {
+        boardPlayer.forEach(cardBoard => {
+            if (cardData.uid == cardBoard.uid){
+                cardBoard.update(cardData)
+            }
+        })
+    })
+}
 
 const actualizeHpMp = (data) => {
     // display hp and mp for both players
@@ -352,7 +382,7 @@ const actualizeHpMp = (data) => {
 }
 
 window.addEventListener("load", () => {
-    // ----------------- STATIC ACTION -----------------------
+    // ----------------- STATIC ACTIONS -----------------------
     document.querySelector('#end-turn').addEventListener('click', () => {
       actionPlayerEndTurn()
     })

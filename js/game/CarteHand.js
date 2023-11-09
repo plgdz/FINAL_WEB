@@ -7,6 +7,7 @@ export class CarteHand {
         this.baseHP = card['baseHP']
         this.atk = card['atk']
         this.mechanics = card['mechanics']
+        this.container = ''
 
         this.whom = 'card-' + whom
 
@@ -19,10 +20,10 @@ export class CarteHand {
         this.template.className = 'card-hand ' + this.whom
         this.template.id = 'h' + this.uid
 
-        let cardHp = document.createElement('div')
-        cardHp.className = 'card-hand-details card-hp'
-        cardHp.innerHTML = this.hp
-        this.template.append(cardHp)
+        this.cardHp = document.createElement('div')
+        this.cardHp.className = 'card-hand-details card-hp'
+        this.cardHp.innerHTML = this.hp
+        this.template.append(this.cardHp)
 
         let cardAtk = document.createElement('div')
         cardAtk.className = 'card-hand-details card-atk'
@@ -39,14 +40,14 @@ export class CarteHand {
         cardImg.style.backgroundColor = '#f0a02d'
         this.template.append(cardImg)
 
-        let cardDesc = document.createElement('div')
-        cardDesc.className = 'card-hand-desc'
-        cardDesc.style.overflow = 'hidden'
-        this.template.append(cardDesc)  
+        this.cardDesc = document.createElement('div')
+        this.cardDesc.className = 'card-hand-desc'
+        this.cardDesc.style.overflow = 'hidden'
+        this.template.append(this.cardDesc)  
 
         if (this.mechanics.length > 0) {
             this.mechanics.forEach(mech => {
-                cardDesc.innerHTML += mech + '<br>'
+                this.cardDesc.innerHTML += mech + '<br>'
             });
 
             if (this.mechanics[0].includes('Battlecry')) { cardImg.style.backgroundImage = 'url("./images/assets/Battlecry.png")' }
@@ -64,6 +65,7 @@ export class CarteHand {
     
     setContainer(node){
         document.getElementById(node.id).append(this.template)
+        this.container = node.id
     }
 
     getId(){ return this.template.id }
@@ -73,5 +75,18 @@ export class CarteHand {
     setIdBoard() {
         // Set a new ID for the new board Dragabble instance 
         this.template.id = 'b'+this.uid
+    }
+
+    update(card) {
+        this.hp = card['hp']
+        this.mechanics = card['mechanics']
+        this.cardDesc.innerHTML = ''
+
+        this.cardHp.innerHTML = this.hp
+        if (this.mechanics.length > 0) {
+            this.mechanics.forEach(mech => {
+                this.cardDesc.innerHTML += mech + '<br>'
+            });
+        }
     }
 }
