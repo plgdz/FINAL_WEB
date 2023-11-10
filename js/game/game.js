@@ -3,20 +3,16 @@ import { CarteOpp } from './carteOpp.js'
 
 let delay = 1000
 let init = true
+let yourTurn = null
 
-let actions = 0
+let spawn = 0
 
 let handPlayer = []
 let boardPlayer = []
-let sizeHandPlayer = 0
-let sizeBoardPlayer = 0
 let hand1 = 0
 
 let handOpp = []
 let boardOpp = []
-
-let handOppSize = 0
-let sizeBoardOpp = 0
 
 let hpOpp = document.querySelector('#hp-opp')
 let mpOpp = document.querySelector('#mp-opp')
@@ -26,6 +22,8 @@ let mpPlayer = document.querySelector('#mp-player')
 
 let bdPlayer = document.querySelector('#board-player')
 let bdOpp = document.querySelector('#board-opp')
+
+let cdNumber = document.querySelector('#countdown-number')
 
 
 
@@ -39,8 +37,6 @@ const state = () => {
         console.log(data)
    
         if (typeof data !== "object") {
-            console.log('ERROR : ' + data)
-
             if (data == 'LAST_GAME_WON' || data == "LAST_GAME_LOST") {
                 console.log('PARTIE TERMINEE')
             }
@@ -70,7 +66,6 @@ const playerCardPlayedBoard = (card) => {
     } else {
         card.setContainer(document.getElementById("cc2"))
     }
-    sizeHandPlayer += 1  
     
     Draggable.create('#' + c.id, {
         bounds: document.querySelector('#body'),
@@ -96,6 +91,8 @@ const playerCardPlayedBoard = (card) => {
 
 const playerCardSetDragBoard = (cardPlayer) => {
     let c = cardPlayer.getTemplate()
+    cardPlayer.setIdBoard()
+    let opp = document.getElementById('avatar-opp')
 
     // Set the card on the board draggable
     Draggable.create('#'+c.id, {
@@ -114,10 +111,12 @@ const playerCardSetDragBoard = (cardPlayer) => {
                 if (Draggable.get('#'+c.id).hitTest(hitZone)) {
                     let targetUid = hitZone.id
                     actionPlayerAttack(cardPlayer, targetUid.substring(1))
-                } else if (Draggable.get('#'+c.id).hitTest(document.getElementById('#avatar-opp'))){
-                    actionPlayerAttack(cardPlayer, '0')
                 }
             })
+
+            if (Draggable.get('#'+c.id).hitTest(opp)){
+                actionPlayerAttack(cardPlayer, '0')
+            }
 
             gsap.to('#'+c.id, {x:0, y:0, scale:1})                           
         }
@@ -127,7 +126,9 @@ const playerCardSetDragBoard = (cardPlayer) => {
 
 // ------------- ANIMATION CARD OPPONENT --------------------------------------
 const oppCardPlayed = (cardOppData) => {
+    console.log('Opp from hand to board')
   let c = new CarteHand(cardOppData, 'board-opp')
+  console.log('OPP CARD PLAYED')
   boardOpp.push(c)
   try {
       let playedOpp = handOpp.pop() 
@@ -140,11 +141,12 @@ const oppCardPlayed = (cardOppData) => {
           opacity: 0,
           duration: 1,
           onComplete: function () {
-          card.remove()
-          c.setContainer(bdOpp)
-      }})
+            card.remove()
+            c.setContainer(bdOpp)
+            }
+        })
   } catch (error) {
-      c.setContainer(bdOpp)
+        c.setContainer(bdOpp)
   }
     
 }
@@ -167,11 +169,15 @@ const actionPlayerPlay = (card) => {
     let c = card.getTemplate()
 
     if (typeof data !== "object") {
-      console.log('ERROR : ' + data)
       gsap.to('#'+c.id, {x: 0, y: 0})
-      // c.style = ''
     } else {
       updateDisplay(data)
+
+        card.mechanics.forEach(mech => {
+            if (mech.includes('Spawn')) {
+                spawn = mech.match(/(\d+)/);
+            }
+        })
 
         if (card.container == 'cc1') {
         hand1 -= 1;
@@ -195,9 +201,6 @@ const actionPlayerPlay = (card) => {
 
       // actualize the hand list and counter
       handPlayer = handPlayer.filter(cr => cr.uid != card.uid)
-      sizeHandPlayer -= 1
-      sizeBoardPlayer += 1
-
 
     }
   })
@@ -217,10 +220,10 @@ const actionPlayerEndTurn = () => {
   })
   .then(response => response.json())
   .then(data => {
-    if (typeof data !== "object") {
-      console.log('ERROR : ' + data)
+    if (typeof data == "object") {
+        updateDisplay(data)
     } else {
-      updateDisplay(data)
+      console.log(data)
     }
   })
 
@@ -229,9 +232,6 @@ const actionPlayerEndTurn = () => {
 const actionPlayerAttack = (card, targetUid) => {
   // Increase delay for state by 1sec
   delay += 1000
-
-  console.log(card)
-  console.log(card.uid)
   
   let formData = new FormData()
   formData.append("type", "ATTACK")
@@ -248,18 +248,17 @@ const actionPlayerAttack = (card, targetUid) => {
         console.log('ERROR : ' + data)
       
     } else {
-        console.log('attack')
         updateDisplay(data) 
     }
   })
 }
 
 // ----------------- REMOVE CARD FROM BOARD ----------------------------------
-const getDiffElem = (newTab, oldTab, whom) => {
+const updateBoard = (data) => {
     // Compare the newTab and the old opponent board to find the removed card
-    oldTab.forEach(cardSaved => {
+    boardPlayer.forEach(cardSaved => {
         let found = false
-        newTab.forEach(newCard => {
+        data['board'].forEach(newCard => {
             if (cardSaved.uid == newCard.uid) {
                 found = true
             }
@@ -267,24 +266,55 @@ const getDiffElem = (newTab, oldTab, whom) => {
 
         // Delete the removed card from the saved board and from the display
         if (!found){
-            console.log("INDEX")
-            console.log(oldTab.findIndex(c => c.uid == cardSaved.uid))
-            let index = oldTab.findIndex(c => c.uid == cardSaved.uid)
-            
-            let div = document.getElementById(oldTab[index].getTemplate().id)
-            div.remove()
+            let index = boardPlayer.findIndex(c => c.uid == cardSaved.uid)
+            let div = document.getElementById(boardPlayer[index].getTemplate().id)
 
-            oldTab.splice(index, 1)      
+            try {
+                div.remove()
+                boardOpp.splice(index, 1) 
+            } catch {
+                console.log(div)
+            } 
+
         }
+
+        
     })
+
+    boardOpp.forEach(cardSaved => {
+        let found = false
+        data['opponent']['board'].forEach(newCard => {
+            if (cardSaved.uid == newCard.uid) {
+                found = true
+            }
+        })
+
+
+        // Delete the removed card from the saved board and from the display
+        if (!found){
+            let index = boardOpp.findIndex(c => c.uid == cardSaved.uid)
+            let div = document.getElementById(boardOpp[index].getTemplate().id)
+
+            try {
+                div.remove()
+                boardOpp.splice(index, 1) 
+            } catch {
+                console.log(div)
+            } 
+
+        }
+        
+    })
+
 }
 
 // ----------------- DISPLAY UPDATES -----------------------------
 const initDisplay = (data) => {
-    actualizeHpMp(data)
+    yourTurn = data['yourTurn']
+    timerBar(data)
+    cdNumber.innerHTML = data['remainingTurnTime']
 
-    // get hand size for both players
-    handOppSize = data['opponent']['handSize']
+    actualizeHpMp(data)
 
     // -------------- PLAYER -----------------------------------------
     // Set display of player hand and store data in list handPlayer
@@ -294,10 +324,8 @@ const initDisplay = (data) => {
     })
 
     // Set display of player board hand store data in 
-    console.log(data['board'])
     data['board'].forEach(cardData => {
         let card = new CarteHand(cardData, 'player')
-        console.log(card)
         card.setContainer(bdPlayer)
         boardPlayer.push(card)
         playerCardSetDragBoard(card)
@@ -306,14 +334,13 @@ const initDisplay = (data) => {
 
     // ------------------- OPPONENT -----------------------------------
     // Set display of opponent hidden hand
-    for (let i = 0; i < handOppSize; i++) {
+    for (let i = 0; i < data['opponent']['handSize']; i++) {
         handOpp.push(new CarteOpp())
     }
 
     // Set display of opponent board
     data['opponent']['board'].forEach(cardData => {
         oppCardPlayed(cardData)
-        sizeBoardOpp += 1
     })
     
     // Display is set : turn var to false to run the the game from this state (recall if page reloaded during the game to display the actual state)
@@ -321,40 +348,63 @@ const initDisplay = (data) => {
 }
 
 const updateDisplay = (data) => {
-  actualizeHpMp(data)
-            
-  // Check if the opponent played a card on the board
-  if ( data['opponent']['board'].length > sizeBoardOpp) {
-      oppCardPlayed(data['opponent']['board'].pop())  // Call the opponent played card func (animation + data storage)
-      sizeBoardOpp += 1                               // Actualize the opponent board size
-  }
-  // Check if the opponent lost a card on the board
-  else if (data['opponent']['board'].length < sizeBoardOpp) {
-    console.log('BREAK POINT //// ' + sizeBoardOpp)
-    getDiffElem(data['opponent']['board'], boardOpp)
-    sizeBoardOpp -= 1 
-  }
+    if (yourTurn != data['yourTurn']) {
+        yourTurn = data['yourTurn']
+        timerBar(data)
+    }
+    cdNumber.innerHTML = data['remainingTurnTime']
 
-  console.log( 'data hand ' +data['hand'].length )
-  console.log('player hand' + sizeHandPlayer)
+    actualizeHpMp(data)
+    playableCard(data)
+            
+  
+    console.log(data['opponent']['board'].length)
+    console.log(boardOpp.length)
+    // Check if the opponent played a card on the board
+    if (data['opponent']['board'].length != boardOpp.length){
+        if ( data['opponent']['board'].length > boardOpp.length) {
+            console.log('test')
+            oppCardPlayed(data['opponent']['board'].pop())  // Call the opponent played card func (animation + data storage)                         
+        }        
+    }
+   
+    if (data['opponent']['handSize'] > handOpp.length) {
+        handOpp.push(new CarteOpp())
+    } else if (data['opponent']['handSize'] < handOpp.length){
+        handOpp.pop()
+    }
+
+    
+  
   // if new card in players hand, add Draggable to this card
-  if (data['hand'].length > sizeHandPlayer) {
+  if (data['hand'].length > handPlayer.length) {
       playerCardPlayedBoard(new CarteHand(data['hand'].pop()))
   }
 
   // If card destroyed from players board, remove it from the board display and list
-  if (data['board'].length < sizeBoardPlayer){
-      console.log('BREAK POINT //// ' + sizeBoardPlayer)
-      getDiffElem(data['board'], boardPlayer)
-      sizeBoardPlayer -= 1
-  }
+    if (data['board'].length != boardPlayer.length){
+        
+      
+        if (spawn){
+            let dif = boardPlayer.length - data['board'].length 
+            let newCard = data['board'].slice(dif)
+            newCard.forEach(card => {
+                let c = new CarteHand(card, 'player')
+                c.setIdBoard()
+                c.setContainer(document.getElementById('board-player'))
+                playerCardSetDragBoard(c)  
+            })
+            spawn = null
+        }
+    }
+    
+    updateBoard(data)
 
-  actualizeCardBoard(data)
+    actualizeCardBoard(data)
 }
 
-const actualizeCardBoard = (data) => {
+const actualizeCardBoard = (data) => {  
     
-    console.log(boardOpp)
     data['opponent']['board'].forEach(cardData => {
         boardOpp.forEach(cardBoard => {
             if (cardData.uid == cardBoard.uid){
@@ -363,6 +413,7 @@ const actualizeCardBoard = (data) => {
         })
     })
 
+    
     data['board'].forEach(cardData => {
         boardPlayer.forEach(cardBoard => {
             if (cardData.uid == cardBoard.uid){
@@ -381,6 +432,41 @@ const actualizeHpMp = (data) => {
     mpPlayer.innerHTML = data['mp']
 }
 
+const timerBar = (data) => {
+    let timer = document.querySelector('#timer')
+    timer.classList.remove('running-timer')
+    
+    if (yourTurn) {
+        document.querySelector('#countdown').style.filter = 'grayscale(0)'
+        timer.classList.add('running-timer')
+    } else {
+        document.querySelector('#countdown').style.filter = 'grayscale(1)'
+        timer.classList.add('running-timer')
+    }
+}
+
+const playableCard = (data) => {
+    handPlayer.forEach(card => {
+        if (card.cost <= data['mp']) {
+            card.getTemplate().classList.add('playable')
+        } else {
+            card.getTemplate().classList.remove('playable')
+        }
+    })
+
+    console.log(boardPlayer)
+    boardPlayer.forEach(card => {
+        if (card['state'] == 'IDLE') {
+            console.log('IDLE')
+            card.getTemplate().classList.add('playable')
+        } else {
+            card.getTemplate().classList.remove('playable')
+        }
+    })
+}
+
+
+// -------------------------------------------------------------------------------------
 window.addEventListener("load", () => {
     // ----------------- STATIC ACTIONS -----------------------
     document.querySelector('#end-turn').addEventListener('click', () => {

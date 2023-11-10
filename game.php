@@ -29,6 +29,14 @@
         <div class="board-container" id="board-player"></div>
     </div>
 
+    <!-- find and adapted from https://codepen.io/charlenopires/pen/JMoxdb -->
+    <div id="countdown">
+    <div id="countdown-number"></div>
+        <svg>
+            <circle id="timer" class="" r="40" cx="50" cy="50"></circle>
+        </svg>
+    </div>
+
     <div id="deck">
         <div class="card-container" id="cc1"></div>
         <div id="btn-container">

@@ -8,6 +8,7 @@ export class CarteHand {
         this.atk = card['atk']
         this.mechanics = card['mechanics']
         this.container = ''
+        this.state = card['state']
 
         this.whom = 'card-' + whom
 
@@ -78,6 +79,7 @@ export class CarteHand {
     }
 
     update(card) {
+        this.state = card['state']
         this.hp = card['hp']
         this.mechanics = card['mechanics']
         this.cardDesc.innerHTML = ''

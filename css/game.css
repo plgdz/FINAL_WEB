@@ -219,3 +219,98 @@ body{
     display: flex;
     align-items: center;
 }
+
+/* COUNTDOWN */
+
+#countdown {
+  position: absolute;
+  top: 25vh;
+  right: 5vw;
+  margin-top: 100px;
+  height: 100px;
+  width: 100px;
+  text-align: center;
+}
+
+#countdown-number {
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 30px;
+    font-weight: 500;
+  color: white;
+  display: inline-block;
+  line-height: 100px;
+  background-color: #5C4033;
+  border-radius: 50%;
+  height: 100%;
+  width: 100%;
+}
+
+svg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100px;
+  height: 100px;
+  transform: rotateY(-180deg) rotateZ(-90deg);
+}
+
+svg circle {
+  stroke-dasharray: 250px;
+  stroke-dashoffset: 0px;
+  stroke-linecap: round;
+  stroke-width: 6px;
+  stroke: rgb(1, 151, 1);
+  fill: none;
+}
+
+.running-timer{
+    animation: countdown 50s linear forwards;
+}
+
+@keyframes countdown {
+  0% {
+    stroke-dashoffset: 0px;
+    stroke: rgb(1, 151, 1);
+  }
+  50% {
+    stroke: rgb(1, 151, 1);
+  }
+  65% {
+    stroke: rgb(255, 208, 0);
+  }
+  80% {
+    stroke: rgb(255, 145, 0);
+  }
+  90% {
+    stroke: rgb(255, 0, 0);
+  }
+  100% {
+    stroke-dashoffset: 250px;
+    stroke: rgb(255, 0, 0);
+  }
+}
+
+
+.playable  {
+    box-shadow: 0px 0px 20px 10px #48abe0;
+    animation: shadows 1.5s infinite;
+}
+
+@keyframes shadows {
+  0% {
+    text-shadow: #48abe0 0 0 10px;
+    box-shadow: 0px 0px 20px 10px #48abe0;
+  }
+  50% {
+    text-shadow: blueviolet 0 0 10px;
+    box-shadow: 0px 0px 20px 10px blueviolet;
+  }
+  75% {
+    text-shadow: rebeccapurple 0 0 10px;
+    box-shadow: 0px 0px 20px 10px rebeccapuprle;
+  }
+  100% {
+    text-shadow: #48abe0 0 0 10px;
+    box-shadow: 0px 0px 20px 10px #48abe0;
+  }
+}
