@@ -32,8 +32,7 @@
     <!-- find and adapted from https://codepen.io/charlenopires/pen/JMoxdb -->
     <div id="countdown">
     <div id="countdown-number"></div>
-        <svg>
-            <circle id="timer" class="" r="40" cx="50" cy="50"></circle>
+        <svg id="timer">
         </svg>
     </div>
 

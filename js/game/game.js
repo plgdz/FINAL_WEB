@@ -9,10 +9,12 @@ let spawn = 0
 
 let handPlayer = []
 let boardPlayer = []
+let uidBdPlayer = []
 let hand1 = 0
 
 let handOpp = []
 let boardOpp = []
+let uidBdOpp = []
 
 let hpOpp = document.querySelector('#hp-opp')
 let mpOpp = document.querySelector('#mp-opp')
@@ -22,6 +24,7 @@ let mpPlayer = document.querySelector('#mp-player')
 
 let bdPlayer = document.querySelector('#board-player')
 let bdOpp = document.querySelector('#board-opp')
+let opp = document.getElementById('avatar-opp')
 
 let cdNumber = document.querySelector('#countdown-number')
 
@@ -90,65 +93,58 @@ const playerCardPlayedBoard = (card) => {
 }
 
 const playerCardSetDragBoard = (cardPlayer) => {
-    let c = cardPlayer.getTemplate()
     cardPlayer.setIdBoard()
-    let opp = document.getElementById('avatar-opp')
+    let c = cardPlayer.getTemplate()
 
-    // Set the card on the board draggable
-    Draggable.create('#'+c.id, {
-        bounds: document.querySelector('#body'),
-        onDrag: () => {
-          gsap.to('#'+c.id, {scale: .5}) 
-        },
-        onDragEnd: () => {
-            // Get the actualize opponent board to check who's the player is trying to attck
-            let hitList = []
-            boardOpp.forEach(cardOpp => {
-                hitList.push(document.getElementById(cardOpp.getId()))
-            })
+    if (!Draggable.get('#'+c.id)){
+        console.log('set drag board')
+        // Set the card on the board draggable
+        Draggable.create('#'+c.id, {
+            bounds: document.querySelector('#body'),
+            onDrag: () => {
+              gsap.to('#'+c.id, {scale: .5})
+              hittableCard()
+            },
+            onDragEnd: () => {
+                // Get the actualize opponent board to check who's the player is trying to attck
+                let hitList = []
+                boardOpp.forEach(cardOpp => {
+                    hitList.push(document.getElementById('h'+cardOpp.uid))
+                })
+                console.log(hitList)
 
-            hitList.forEach(hitZone => {
-                if (Draggable.get('#'+c.id).hitTest(hitZone)) {
-                    let targetUid = hitZone.id
-                    actionPlayerAttack(cardPlayer, targetUid.substring(1))
+                hitList.forEach(hitZone => {
+                    if (Draggable.get('#'+c.id).hitTest(hitZone)) {
+                        let targetUid = hitZone.id
+                        actionPlayerAttack(cardPlayer, targetUid.substring(1))
+                    }
+                })
+
+                if (Draggable.get('#'+c.id).hitTest(opp)){
+                    actionPlayerAttack(cardPlayer, '0')
                 }
-            })
 
-            if (Draggable.get('#'+c.id).hitTest(opp)){
-                actionPlayerAttack(cardPlayer, '0')
+                gsap.to('#'+c.id, {x:0, y:0, scale:1})                           
             }
-
-            gsap.to('#'+c.id, {x:0, y:0, scale:1})                           
-        }
-    })
+        })
+    }
     
 }
 
 // ------------- ANIMATION CARD OPPONENT --------------------------------------
-const oppCardPlayed = (cardOppData) => {
-    console.log('Opp from hand to board')
-  let c = new CarteHand(cardOppData, 'board-opp')
-  console.log('OPP CARD PLAYED')
-  boardOpp.push(c)
-  try {
-      let playedOpp = handOpp.pop() 
-      let card = playedOpp.getTemplate()
-
-      gsap.to(card, {y:200, duration: 1})
-      gsap.to(card, {
-          rotationY: 360,
-          scale:2,
-          opacity: 0,
-          duration: 1,
-          onComplete: function () {
-            card.remove()
-            c.setContainer(bdOpp)
-            }
-        })
-  } catch (error) {
-        c.setContainer(bdOpp)
-  }
-    
+const oppCardPlayed = () => {
+    let playedOpp = handOpp.pop() 
+    let card = playedOpp.getTemplate()
+    gsap.to(card, {y:200, duration: 1})
+    gsap.to(card, {
+        rotationY: 360,
+        scale:2,
+        opacity: 0,
+        duration: 1,
+        onComplete: function () {
+          card.remove()
+          }
+      })
 }
 
 // ------------- PLAYER ACTION -------------------------------------------------
@@ -185,16 +181,11 @@ const actionPlayerPlay = (card) => {
 
       // remove card from hand put it in board
       document.getElementById(c.id).remove()
-      bdPlayer.append(c)
-      boardPlayer.push(card)
+
 
       // reset the position of the div after the drag + reset GSAP origin
       c.style.transform = "translate(" + 0 +","+0+')'
       gsap.set('#'+c.id, {x: 0, y: 0})
-
-      // set the newTab id for the card played (for newTab draggable in playerCardSetDragBoard)
-      Draggable.get('#'+c.id).kill()
-      card.setIdBoard()
 
       // set the new draggable for the moved card
       playerCardSetDragBoard(card)
@@ -253,61 +244,6 @@ const actionPlayerAttack = (card, targetUid) => {
   })
 }
 
-// ----------------- REMOVE CARD FROM BOARD ----------------------------------
-const updateBoard = (data) => {
-    // Compare the newTab and the old opponent board to find the removed card
-    boardPlayer.forEach(cardSaved => {
-        let found = false
-        data['board'].forEach(newCard => {
-            if (cardSaved.uid == newCard.uid) {
-                found = true
-            }
-        })
-
-        // Delete the removed card from the saved board and from the display
-        if (!found){
-            let index = boardPlayer.findIndex(c => c.uid == cardSaved.uid)
-            let div = document.getElementById(boardPlayer[index].getTemplate().id)
-
-            try {
-                div.remove()
-                boardOpp.splice(index, 1) 
-            } catch {
-                console.log(div)
-            } 
-
-        }
-
-        
-    })
-
-    boardOpp.forEach(cardSaved => {
-        let found = false
-        data['opponent']['board'].forEach(newCard => {
-            if (cardSaved.uid == newCard.uid) {
-                found = true
-            }
-        })
-
-
-        // Delete the removed card from the saved board and from the display
-        if (!found){
-            let index = boardOpp.findIndex(c => c.uid == cardSaved.uid)
-            let div = document.getElementById(boardOpp[index].getTemplate().id)
-
-            try {
-                div.remove()
-                boardOpp.splice(index, 1) 
-            } catch {
-                console.log(div)
-            } 
-
-        }
-        
-    })
-
-}
-
 // ----------------- DISPLAY UPDATES -----------------------------
 const initDisplay = (data) => {
     yourTurn = data['yourTurn']
@@ -329,6 +265,7 @@ const initDisplay = (data) => {
         card.setContainer(bdPlayer)
         boardPlayer.push(card)
         playerCardSetDragBoard(card)
+        uidBdPlayer.push(cardData.uid)
     })
 
 
@@ -340,9 +277,11 @@ const initDisplay = (data) => {
 
     // Set display of opponent board
     data['opponent']['board'].forEach(cardData => {
-        oppCardPlayed(cardData)
+        let card = new CarteHand(cardData, 'opponent')
+        card.setContainer(bdOpp)
+        uidBdOpp.push(cardData.uid)
     })
-    
+    boardOpp = data['opponent']['board']
     // Display is set : turn var to false to run the the game from this state (recall if page reloaded during the game to display the actual state)
     init = false
 }
@@ -356,63 +295,73 @@ const updateDisplay = (data) => {
 
     actualizeHpMp(data)
     playableCard(data)
-            
-  
-    console.log(data['opponent']['board'].length)
-    console.log(boardOpp.length)
-    // Check if the opponent played a card on the board
-    if (data['opponent']['board'].length != boardOpp.length){
-        if ( data['opponent']['board'].length > boardOpp.length) {
-            console.log('test')
-            oppCardPlayed(data['opponent']['board'].pop())  // Call the opponent played card func (animation + data storage)                         
-        }        
-    }
-   
-    if (data['opponent']['handSize'] > handOpp.length) {
+
+    document.querySelector('#container-card-opp').innerHTML = ''
+    for (let i = 0; i < data['opponent']['handSize']; i++) {
         handOpp.push(new CarteOpp())
-    } else if (data['opponent']['handSize'] < handOpp.length){
-        handOpp.pop()
+    }
+    // if new card in players hand, add Draggable to this card
+    if (data['hand'].length > handPlayer.length) {
+        playerCardPlayedBoard(new CarteHand(data['hand'].pop()))
     }
 
-    
-  
-  // if new card in players hand, add Draggable to this card
-  if (data['hand'].length > handPlayer.length) {
-      playerCardPlayedBoard(new CarteHand(data['hand'].pop()))
-  }
-
-  // If card destroyed from players board, remove it from the board display and list
-    if (data['board'].length != boardPlayer.length){
-        
-      
-        if (spawn){
-            let dif = boardPlayer.length - data['board'].length 
-            let newCard = data['board'].slice(dif)
-            newCard.forEach(card => {
-                let c = new CarteHand(card, 'player')
-                c.setIdBoard()
-                c.setContainer(document.getElementById('board-player'))
-                playerCardSetDragBoard(c)  
-            })
-            spawn = null
-        }
-    }
-    
-    updateBoard(data)
-
+    boardManager(data)
     actualizeCardBoard(data)
 }
 
-const actualizeCardBoard = (data) => {  
-    
-    data['opponent']['board'].forEach(cardData => {
-        boardOpp.forEach(cardBoard => {
-            if (cardData.uid == cardBoard.uid){
-                cardBoard.update(cardData)
-            }
-        })
+const boardManager = (data) => {
+    // Board opp verification
+    let tempOpp = [] 
+    data['opponent']['board'].forEach(card => {
+        tempOpp.push(card.uid)
     })
+    let tmpJoinOp = tempOpp.join('-')
 
+    if (tmpJoinOp != uidBdOpp.join('-')) {
+        
+        if (tmpJoinOp.length > uidBdOpp.length) {
+            oppCardPlayed()
+            setTimeout(1000, drawBoardOpp(data))
+        } else {
+            drawBoardOpp(data)
+        }
+        
+    }
+    boardOpp = data['opponent']['board']
+
+    // Board player verification
+    let tempPlayer = [] 
+    data['board'].forEach(card => {
+        tempPlayer.push(card.uid)
+    })
+    let tmpJoinPl = tempPlayer.join('-')
+
+    if (tmpJoinPl != uidBdPlayer.join('-')) {
+        bdPlayer.innerHTML = ""
+        uidBdPlayer = []
+        data['board'].forEach(cardData => {
+            let card = new CarteHand(cardData, 'player')
+            card.setContainer(bdPlayer)
+            boardPlayer.push(card)
+            uidBdPlayer.push(cardData.uid)
+            playerCardSetDragBoard(card)
+        })
+    }
+
+}
+
+const drawBoardOpp = (data) => {
+    bdOpp.innerHTML = ""
+    uidBdOpp = []
+    data['opponent']['board'].forEach(cardData => {
+        let card = new CarteHand(cardData, 'opponent')
+        card.setContainer(bdOpp)
+        uidBdOpp.push(cardData.uid)
+    })
+}
+
+const actualizeCardBoard = (data) => {  
+    drawBoardOpp(data)
     
     data['board'].forEach(cardData => {
         boardPlayer.forEach(cardBoard => {
@@ -432,37 +381,72 @@ const actualizeHpMp = (data) => {
     mpPlayer.innerHTML = data['mp']
 }
 
-const timerBar = (data) => {
+const timerBar = () => {
     let timer = document.querySelector('#timer')
-    timer.classList.remove('running-timer')
     
     if (yourTurn) {
+        timer.innerHTML = ""
         document.querySelector('#countdown').style.filter = 'grayscale(0)'
-        timer.classList.add('running-timer')
+        timer.innerHTML = '<circle class="running-timer" r="40" cx="50" cy="50"></circle>'
     } else {
+        timer.innerHTML = ""
         document.querySelector('#countdown').style.filter = 'grayscale(1)'
-        timer.classList.add('running-timer')
+        timer.innerHTML = '<circle class="running-timer" r="40" cx="50" cy="50"></circle>'
     }
 }
 
 const playableCard = (data) => {
-    handPlayer.forEach(card => {
-        if (card.cost <= data['mp']) {
-            card.getTemplate().classList.add('playable')
-        } else {
-            card.getTemplate().classList.remove('playable')
-        }
-    })
+    if (yourTurn){
+        handPlayer.forEach(card => {
+            if (card.cost <= data['mp']) {
+                card.getTemplate().classList.add('playable')
+            } else {
+                card.getTemplate().classList.remove('playable')
+            }
+        })
+        boardPlayer.forEach(card => {
+            if (card['state'] == 'IDLE') {
+                card.getTemplate().classList.add('playable')
+            } else {
+                card.getTemplate().classList.remove('playable')
+            }
+        })
+    } else {
+        handPlayer.forEach(card => {     
+            card.getTemplate().classList.remove('playable')  
+        })
+        boardPlayer.forEach(card => {
+            card.getTemplate().classList.remove('playable')  
+        })
+    }
+}
 
-    console.log(boardPlayer)
-    boardPlayer.forEach(card => {
-        if (card['state'] == 'IDLE') {
-            console.log('IDLE')
-            card.getTemplate().classList.add('playable')
-        } else {
-            card.getTemplate().classList.remove('playable')
+const hittableCard = () => {
+    let taunt = 0
+    if (yourTurn){
+        boardOpp.forEach(card => {
+            if (card.mechanics.length > 0){
+                card['mechanics'].forEach(mech => {
+                    if (mech.includes('Taunt')) {
+                        document.querySelector('#h'+card.uid).className += 'hittable'
+                        taunt += 1
+                    }
+                })
+
+            }
+        })
+        if (taunt == 0) {
+            boardOpp.forEach(card => {
+                document.querySelector('#h'+card.uid).className += ' hittable'
+                opp.className += ' hittable'                 
+            })
         }
-    })
+    } else {
+        boardOpp.forEach(card => {
+            document.querySelector('#h'+card.uid).classList.remove('hittable')
+            opp.classList.remove('hittable')                    
+        })
+    }
 }
 
 

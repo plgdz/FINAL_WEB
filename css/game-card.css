@@ -1,10 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,500;1,700&display=swap');
+
 :root {
     --card-bg : #edeae9;
     --card-border: #b7aca6;
     --card-hp: #53704D;
     --card-mp: #6A4D70;
     --card-cost: #4D6570;
-    --card-txt: #fff;
+    --card-txt: #b7aca6;
 
 }
 
@@ -12,17 +14,11 @@
     display: block;
     background-color: var(--card-bg);
     border: solid 4px var(--card-border);
-    border-radius: 5px;
+    border-radius: 10px;
     margin-left: 2%;
     height: 80%;
     width: 20%;
 }
-
-/* .card-hand:hover{
-    transform: translateY(-50%) scale(1.5);
-    animation: .5s;
-    z-index: 99;
-} */
 
 .card-hand-details {
     height: 3vh;
@@ -56,8 +52,7 @@
     width: 90%;
     height: 60%;
     background-color: black;
-     background-repeat: no-repeat;
-    /* background-attachment: fixed;  */
+    background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
 }
@@ -65,10 +60,15 @@
 .card-hand-desc {
     position: relative;
     top: -8vh;
-    left: 5%;
-    width: 90%;
-    height: 30%;
-    background-color: salmon;
+    /* left: 5%; */
+    margin: auto;
+    width: 80%;
+    height: 25%;
+    background-color: var(--card-txt);
+    border-radius: 5px;
+    padding: 4px;
+    font-family: 'Ubuntu', sans-serif;
+    color: var(--card-bg);
 }
 
 .card-opp {
