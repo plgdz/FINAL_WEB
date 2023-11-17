@@ -185,6 +185,9 @@ function burgerMenu(){
 
 function openDeck() {
     let deckDisplay = document.querySelector('#deck-back')
+    deckDisplay.style.position = 'absolute'
+    deckDisplay.style.top = '0' 
+    deckDisplay.style.left = '0'
     deckDisplay.style.display = 'block'
     deckDisplay.style.zIndex = '9'
 

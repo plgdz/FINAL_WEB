@@ -4,6 +4,7 @@ import { CarteOpp } from './carteOpp.js'
 let delay = 1000
 let init = true
 let yourTurn = null
+let end = false
 
 let spawn = 0
 
@@ -40,8 +41,8 @@ const state = () => {
         console.log(data)
    
         if (typeof data !== "object") {
-            if (data == 'LAST_GAME_WON' || data == "LAST_GAME_LOST") {
-                console.log('PARTIE TERMINEE')
+            if ((data == 'LAST_GAME_WON' || data == "LAST_GAME_LOST") && !end ) {
+                endGame(data)
             }
         } 
         else if (init){
@@ -54,8 +55,6 @@ const state = () => {
         setTimeout(state, delay); // Attendre 1 seconde avant de relancer l’appel
     })
 }
-
-
 
 // ------------- SET DRAGGABLE ------------------------------------------------
 const playerCardPlayedBoard = (card) => {
@@ -449,6 +448,37 @@ const hittableCard = () => {
     }
 }
 
+const endGame = (data) => {
+    end = true
+    let main = document.querySelector('body')
+    let bg = document.createElement('div')
+    bg.style = 'position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,.5); z-index:1000'
+
+    let endGame = document.createElement('div')
+    endGame.style = 'position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); width:25%; height: 15%; background-color:#5C4033; border-radius:10px; z-index:1001; border: 5px solid #7c725b;'
+    let endText = document.createElement('h1')
+    endText.style = "text-align:center;font-size:2rem; color:#fff; margin:0; padding-top:5%;"
+
+    if (data == 'LAST_GAME_WON') {
+        endText.innerHTML = 'YOU WON !'
+    } else {
+        endText.innerHTML = 'YOU LOST !'
+    }
+
+    let endButton = document.createElement('button')
+    endButton.style = 'position:absolute; bottom:10%; left:50%; transform:translateX(-50%); width:50%; height:20%; border:none; border-radius:10px; background-color:#7c725b; color:#fff; font-size:1.5rem; cursor:pointer;'
+    endButton.innerHTML = 'RETOUR'
+
+    endButton.addEventListener('click', () => {
+        window.location.href = 'lobby.php'
+    })
+
+    endGame.appendChild(endText)
+    endGame.appendChild(endButton)
+    bg.appendChild(endGame)
+    
+    main.appendChild(bg)
+}
 
 // -------------------------------------------------------------------------------------
 window.addEventListener("load", () => {

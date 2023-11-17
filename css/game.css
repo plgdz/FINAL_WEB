@@ -11,6 +11,32 @@ body{
     background-size: cover;
 }
 
+h1{
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 500;
+    font-size: 3rem;
+    color: #fff;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+button{
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 400;
+    font-size: 1.5rem;
+    color: #fff;
+    background-color: #5C4033;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 5px 5px 2px #3131315d;
+}
+button:hover{
+    box-shadow: 3px 0 3px 1px #3131315d;
+    background-color: #714f40;
+}
+
 #board{
     position: absolute;
     top: 50vh;
@@ -95,9 +121,11 @@ body{
     background-color: #335c40;
     border-radius: 35vh 35vh 0 0;
     box-shadow: 5px 5px #3131315d;
+    cursor: pointer;
 }
 #power:hover{
-    background-color: #3b5c33;
+    box-shadow: 0px 0px 5px 0px #4c7641;
+    background-color: #4c7641;
 }
 
 #end-turn{
@@ -106,6 +134,11 @@ body{
     background-color: #40335c;
     border-radius:0 0 34vh 34vh;
     box-shadow: 5px 5px #3131315d;
+    cursor: pointer;
+}
+#end-turn:hover{
+    box-shadow: 0px 0px 5px 0px #4c4176;
+    background-color: #4c4176;
 }
 
 #health{
@@ -151,7 +184,6 @@ body{
     border-radius: 50%;
     background-color: #334f5c;
     position: absolute;
-
     transform: translateY(-50%);
     box-shadow: 3px 3px 1px #292929a9;
 }
@@ -193,20 +225,25 @@ body{
 
 .info-hp-mp {
     position: absolute;
+    width: 100%;
     z-index: 99999;
     display: block;
     color: #fff;
     font-size: 2rem;
     text-align: center;
-    top: 20%;
+    top: 10%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
 .nb-health{
-    top: -31%;
-    LEFT: 25%;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: -60%;
+    LEFT: 0%;
     transform: rotate(-45deg);
+    font-family: 'Ubuntu', sans-serif;
 }
 
 #container-card-opp {
