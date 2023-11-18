@@ -29,12 +29,13 @@
             $statement->execute();
         }
 
-        public static function updateNote($newNote, $id){
+        public static function updateNote($newTitle, $newNote, $id){
             $connection = Connection::getConnection();
 
-            $statement = $connection->prepare("UPDATE notes SET note = ? WHERE id = ?");
-            $statement->bindParam(1, $newNote);
-            $statement->bindParam(2, $id);
+            $statement = $connection->prepare("UPDATE notes SET title = ?, note = ? WHERE id = ?");
+            $statement->bindParam(1, $newTitle);
+            $statement->bindParam(2, $newNote);
+            $statement->bindParam(3, $id);
             $statement->execute();
         }
 

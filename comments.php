@@ -23,7 +23,7 @@
 
         <?php foreach($data["notes"] as $note) {?>
 
-            <div class="comment">
+            <div class="comment" id="c<?= $note["id"] ?>">
                 <div class="comment-head">
                     <div class="comment-subject"><?= $note["title"] ?></div>
                     <div class="comment-date"><?= $note["date"] ?></div>

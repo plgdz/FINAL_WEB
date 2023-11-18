@@ -9,14 +9,22 @@ window.addEventListener("load", () => {
     let del = document.querySelectorAll(".comment-delete")
     del.forEach(element => {
         element.addEventListener("click", () => {
-            console.log(element.firstChild.firstChild.textContent)
+            notePopUp("delete", element.children[0].innerText)
+            console.log(element.children[0].innerText)
             
         })
     })
 
+    let edit = document.querySelectorAll(".comment-edit")
+    edit.forEach(element => {
+        element.addEventListener("click", () => {
+            notePopUp("edit", element.children[0].innerText)
+            console.log(element.children[0].innerText)
+        })
+    })
 })
 
-const notePopUp = (action) => {
+const notePopUp = (action, idNote) => {
     let bg = document.createElement("div")
     bg.style.position = "absolute"
     bg.style.top = 0
@@ -32,7 +40,11 @@ const notePopUp = (action) => {
     container.style.left = "50%"
     container.style.transform = "translate(-50%, -50%)"
     container.style.width = "25vw"
-    container.style.height = "45vh"
+    if (action == "delete") {
+        container.style.height = "20vh"
+    } else {
+        container.style.height = "45vh"
+    }
     container.style.backgroundColor = "rgb(77, 73, 66)"
     container.style.borderRadius = "10px"
     container.style.alignItems = "center"
@@ -47,6 +59,9 @@ const notePopUp = (action) => {
     } else if (action == "edit") {
         actionName.value = "edit"
         container.innerHTML = "<h1>Modifier une note !</h1>"
+    } else if (action == "delete") {
+        actionName.value = "delete"
+        container.innerHTML = "<h1>Supprimer une note !</h1>"
     }
 
     let br = document.createElement("div")
@@ -63,43 +78,70 @@ const notePopUp = (action) => {
     form.style.height = "75%"
     form.style.width = "100%"
     form.style.marginTop = "2%"
+
+    form.append(actionName)
         
-    let divTitle = document.createElement("div")
-    divTitle.style.width = "60%"
-    divTitle.style.marginLeft = "1%"
-    divTitle.style.display = "flex"
-    divTitle.style.flexDirection = "column"
+    if (action !== "delete") {
+        if (action == "edit") {
+            let id = document.createElement("input")
+            id.type = "hidden"
+            id.name = "id"
+            id.value = idNote
+            form.append(id)
+        }
 
-    let labelTitle = document.createElement("label")
-    labelTitle.for = "title"
-    labelTitle.innerHTML = "Titre"
+        let divTitle = document.createElement("div")
+        divTitle.style.width = "60%"
+        divTitle.style.marginLeft = "1%"
+        divTitle.style.display = "flex"
+        divTitle.style.flexDirection = "column"
 
-    let title = document.createElement("input")
-    title.type = "text"
-    title.name = "title"
-    title.placeholder = "Titre"
+        let labelTitle = document.createElement("label")
+        labelTitle.for = "title"
+        labelTitle.innerHTML = "Titre"
 
-    divTitle.append(labelTitle)
-    divTitle.append(title)
+        let title = document.createElement("input")
+        title.type = "text"
+        title.name = "title"
+        if (action == "edit") {
+            title.value = document.querySelector(`#c${idNote}`).children[0].children[0].innerText
+        } else {
+            title.placeholder = "Titre"
+        }
+        divTitle.append(labelTitle)
+        divTitle.append(title)
 
-    let divDescription = document.createElement("div")
-    divDescription.style.width = "98%"
-    divDescription.style.margin = "auto"
-    divDescription.style.display = "flex"
-    divDescription.style.flexDirection = "column"
+        let divDescription = document.createElement("div")
+        divDescription.style.width = "98%"
+        divDescription.style.margin = "auto"
+        divDescription.style.display = "flex"
+        divDescription.style.flexDirection = "column"
 
-    let labelDescription = document.createElement("label")
-    labelDescription.for = "note"
-    labelDescription.innerHTML = "Note"
+        let labelDescription = document.createElement("label")
+        labelDescription.for = "note"
+        labelDescription.innerHTML = "Note"
 
-    let description = document.createElement("textarea")
-    description.type = "text"
-    description.rows = 10
-    description.name = "note"
-    description.placeholder = "Note ..."
-
-    divDescription.append(labelDescription)
-    divDescription.append(description)
+        let description = document.createElement("textarea")
+        description.type = "text"
+        description.rows = 10
+        description.name = "note"
+        if (action == "edit") {
+            description.value = document.querySelector(`#c${idNote}`).children[1].innerText
+        } else {
+            description.placeholder = "Note ..."
+        }
+        divDescription.append(labelDescription)
+        divDescription.append(description)
+        
+        form.append(divTitle)
+        form.append(divDescription)
+    } else {
+        let id = document.createElement("input")
+        id.type = "hidden"
+        id.name = "id"
+        id.value = idNote
+        form.append(id)
+    }
 
     let divSubmit = document.createElement("div")
     divSubmit.style.width = "100%"
@@ -108,13 +150,15 @@ const notePopUp = (action) => {
 
     let submit = document.createElement("button")
     submit.type = "submit"
-    submit.innerText = "Ajouter"
+    if (action == "delete") {
+        submit.innerText = "Supprimer"
+    } else if (action == "edit") {
+        submit.innerText = "Modifier"
+    } else if (action == "add") {
+        submit.innerText = "Ajouter"
+    }
 
     divSubmit.append(submit)
-
-    form.append(actionName)
-    form.append(divTitle)
-    form.append(divDescription)
     form.append(divSubmit)
 
     container.append(br)

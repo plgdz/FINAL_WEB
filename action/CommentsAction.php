@@ -12,8 +12,10 @@
             if(!empty($_POST)) {
                 if($_POST["action"] == "add") {
                     NotesDAO::addNote($_POST["title"], $_POST["note"]);
-                } elseif($_POST["action"] == "update") {
-                    NotesDAO::updateNote($_POST["answer"], $_POST["id"]);
+                } elseif($_POST["action"] == "edit") {
+                    NotesDAO::updateNote($_POST["title"], $_POST["note"], $_POST["id"]);
+                } elseif($_POST["action"] == "delete") {
+                    NotesDAO::deleteNote($_POST["id"]);
                 }
             }
             $notes = NotesDAO::getNotes();
