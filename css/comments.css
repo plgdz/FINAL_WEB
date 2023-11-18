@@ -36,6 +36,14 @@ body {
     z-index: 9;
 }
 
+#new {
+    height: 5vh;
+    width: 5vh;
+    cursor: pointer;
+    margin-right: 1vw;
+    background-color: #191e11;
+}
+
 #comment-container {
     margin-top: 2vh;
     height: 73vh;
@@ -45,12 +53,16 @@ body {
     background-color: red;
     justify-content: space-between;
 }
+.id {
+    display: none;
+}
 
 .comment {
     margin-top: 1vh;
     height: 20vh;
     width: 32%;
-    background-color: blue;
+    background-color: rgb(66, 63, 57);
+    border: solid 1px rgb(56, 53, 48);
 }
 
 .comment-head {
@@ -85,14 +97,83 @@ body {
 .comment-content {
     height: 80%;
     width: 100%;
-    background-color: #ffffff;
+    /* background-color: #ffffff; */
 }
 
-.comment-edit {
+.comment-action {
     height: 15%;
     width: 20%;
     position: relative;
-    top: -15%;
+    top: -25%;
     left: 80%;
     background-color: black;
+    display: flex;
+}
+
+.comment-edit {
+    height: 100%;
+    width: 50%;
+    background-color: #77b71d;
+    cursor: pointer;
+}
+
+.comment-delete {
+    height: 100%;
+    width: 50%;
+    background-color: rgb(250, 0, 0);
+    cursor: pointer;
+}
+
+
+h1 {
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 500;
+    font-size: 2rem;
+    color: rgb(42, 40, 36);
+    text-align: center;
+    margin: 10px 0 20px 0;
+    padding: 0;
+}
+
+label {
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    color: rgb(42, 40, 36);
+    margin-bottom: 1%;
+}
+
+input, textarea {
+    margin-bottom: 3%;
+    background-color: rgb(66, 63, 57);
+    border: solid 1px rgb(56, 53, 48);
+    border-radius: 3px;
+    color: rgb(42, 40, 36);
+    font-family: 'Ubuntu', sans-serif;
+}
+
+button {
+    font-family: 'Ubuntu', sans-serif;
+    height: 4vh;
+    width: 5vw;
+    font-weight: 400;
+    font-size: 1rem;
+    color: rgb(42, 40, 36);
+    background-color: #77b71d;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 5px 5px 2px #3131315d;
+}
+
+button:hover {
+    box-shadow: 3px 0 3px 1px #3131315d;
+    background-color: #77b71d;
+}
+
+#break{
+    height: 2px;
+    width: 100%;
+    background: linear-gradient(90deg, rgba(255, 252, 252, 0) 15%,#8aed0080 35%,#8aed00bb 50%,#8aed0080 65%,rgba(255, 255, 255, 0) 85%);
+    position: relative;
 }

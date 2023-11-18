@@ -16,33 +16,30 @@
 <body>
     <div id="main-header">
         <h1>Notes</h1>
-        <button>Ajouter</button>
+        <div id="new">Ajouter</div>
     </div>
     <div id="main">
         <div id="comment-container">
+
+        <?php foreach($data["notes"] as $note) {?>
+
             <div class="comment">
                 <div class="comment-head">
-                    <div class="comment-subject">Sujet</div>
-                    <div class="comment-date">Date</div>
+                    <div class="comment-subject"><?= $note["title"] ?></div>
+                    <div class="comment-date"><?= $note["date"] ?></div>
                 </div>
-                <div class="comment-content"></div>
-                <div class="comment-edit"></div>
+                <div class="comment-content">
+                   <p> <?= $note["note"] ?></p>
+                </div>
+                <div class="comment-action">
+                    <div class="comment-edit"><span class="id"><?= $note["id"] ?></span></div>
+                    <div class="comment-delete">
+                        <span class="id"><?= $note["id"] ?></span>
+                    </div>
+                </div>
             </div>
-            <div class="comment">2</div>
-            <div class="comment">3</div>
-            <div class="comment">4</div>
-            <div class="comment">5</div>
-            <div class="comment">6</div>
-            <div class="comment">7</div>
-            <div class="comment">8</div>
-            <div class="comment">1</div>
-            <div class="comment">2</div>
-            <div class="comment">3</div>
-            <div class="comment">4</div>
-            <div class="comment">5</div>
-            <div class="comment">6</div>
-            <div class="comment">7</div>
-            <div class="comment">8</div>
+        
+        <?php } ?>
         </div>
     </div>
 </body>
