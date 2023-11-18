@@ -1,0 +1,15 @@
+body {
+    padding: 0;
+    margin: 0;
+    background-image: url("../images/background/bg-comments.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+#main {
+    height: 70vh;
+    width: 50vh;
+    background-color: aqua;
+    left: 50%;
+}

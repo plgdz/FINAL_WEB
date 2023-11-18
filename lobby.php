@@ -16,6 +16,8 @@
     <title>Lobby</title>
 </head>
 <body>
+    <div id="transition">
+    </div>
     <div id="main-left">
         <div id="title">
             <span class="letter L">L</span>

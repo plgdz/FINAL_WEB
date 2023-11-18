@@ -10,6 +10,16 @@ body{
   background-size: cover;
 }
 
+#transition{
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  z-index: 999999;
+}
+
 #main-left{
   height: 100vh;
   width: 50%;
@@ -178,9 +188,6 @@ li{
 #chat {
   height: 100%;
   width: 100%;
-  /* position: absolute;
-  top: 15vw;
-  left: 5vw; */
   padding: 5px;
   background-color: #252424;
   border: 3px solid #3a3838;
@@ -202,7 +209,6 @@ button {
   color: #ebe7e5;
   cursor: pointer;
   font-size: 1em;
-  font-family: serif;
 }
 
 #deck-back {

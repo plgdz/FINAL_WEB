@@ -186,6 +186,7 @@ button:hover{
     position: absolute;
     transform: translateY(-50%);
     box-shadow: 3px 3px 1px #292929a9;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 .mp-perso{
@@ -256,6 +257,50 @@ button:hover{
     display: flex;
     align-items: center;
 }
+
+.card-count{
+  height: 70px;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-count-img{
+  height: 100%;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-count-number{
+  width: 50%;
+  height: 100%;
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+#card-count-opp{
+  position: absolute;
+  top:50%;
+  left: 11%;
+  transform: translateY(-50%);
+}
+
+#card-count-perso{
+  position: absolute;
+  top:75%;
+  left: 40%;
+  transform: translateY(-50%);
+}
+
 
 /* COUNTDOWN */
 

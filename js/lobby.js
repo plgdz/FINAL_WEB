@@ -1,13 +1,30 @@
 let started = false
 let playing = false
 
+console.log('caca')
+let opacity = 1
+
+
+
 window.addEventListener("load", () => {
+    console.log(document.querySelector("body"))
+    let transition = document.querySelector("#transition")
+    setTimeout(() => {
+        for (let i = 0; i < 100; i++) {
+            setTimeout(() => {
+                opacity -= 0.01
+                transition.style.opacity = opacity
+                console.log(opacity)
+            }, 10 * i)
+        }},500)
+    setTimeout(() => {
+        transition.remove()
+    }, 1500)
 
     let arene = document.querySelector("#arene")
     let menu = document.querySelector("#burger-menu")
     arene.addEventListener("click", popUpDojo)
     menu.addEventListener("click", burgerMenu)
-
 })
 
 function popUpDojo() {
@@ -138,6 +155,10 @@ function burgerMenu(){
     deckCreation.className = "elem-menu"
     deckCreation.innerHTML = 'Gestion du deck'
 
+    let commentaire = document.createElement('li')
+    commentaire.className = "elem-menu"
+    commentaire.innerHTML = 'Commentaire'
+
     let signout = document.createElement('li')
     signout.className = "elem-menu"
     signout.innerHTML = '\
@@ -150,6 +171,7 @@ function burgerMenu(){
     
     listMenu.append(music)
     listMenu.append(deckCreation)
+    listMenu.append(commentaire)
     listMenu.append(signout)
 
     let close = document.createElement('div')

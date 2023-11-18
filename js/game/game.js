@@ -19,9 +19,11 @@ let uidBdOpp = []
 
 let hpOpp = document.querySelector('#hp-opp')
 let mpOpp = document.querySelector('#mp-opp')
+let ccOpp = document.querySelector('#cc-opp')
 
 let hpPlayer = document.querySelector('#hp-player')
 let mpPlayer = document.querySelector('#mp-player')
+let ccPlayer = document.querySelector('#cc-perso')
 
 let bdPlayer = document.querySelector('#board-player')
 let bdOpp = document.querySelector('#board-opp')
@@ -164,6 +166,7 @@ const actionPlayerPlay = (card) => {
     let c = card.getTemplate()
 
     if (typeof data !== "object") {
+        errManager(data)
       gsap.to('#'+c.id, {x: 0, y: 0})
     } else {
       updateDisplay(data)
@@ -213,7 +216,7 @@ const actionPlayerEndTurn = () => {
     if (typeof data == "object") {
         updateDisplay(data)
     } else {
-      console.log(data)
+        errManager(data)
     }
   })
 
@@ -235,12 +238,32 @@ const actionPlayerAttack = (card, targetUid) => {
   .then(response => response.json())
   .then(data => { 
     if (typeof data !== "object") {
-        console.log('ERROR : ' + data)
-      
+        errManager(data)      
     } else {
         updateDisplay(data) 
     }
   })
+}
+
+const actionPlayerHeroPower = () => {
+    // Increase delay for state by 1sec
+    delay += 1000
+    
+    let formData = new FormData()
+    formData.append("type", "HERO_POWER")
+    
+    fetch("ajax-action.php", {   
+        method : 'POST',
+        body : formData
+    })
+    .then(response => response.json())
+    .then(data => { 
+        if (typeof data !== "object") {
+            errManager(data)      
+        } else {
+            updateDisplay(data) 
+        }
+    })
 }
 
 // ----------------- DISPLAY UPDATES -----------------------------
@@ -249,7 +272,8 @@ const initDisplay = (data) => {
     timerBar(data)
     cdNumber.innerHTML = data['remainingTurnTime']
 
-    actualizeHpMp(data)
+    heroPowerCheck(data)
+    actualizeHpMpCc(data)
 
     // -------------- PLAYER -----------------------------------------
     // Set display of player hand and store data in list handPlayer
@@ -292,7 +316,8 @@ const updateDisplay = (data) => {
     }
     cdNumber.innerHTML = data['remainingTurnTime']
 
-    actualizeHpMp(data)
+    actualizeHpMpCc(data)
+    heroPowerCheck(data)
     playableCard(data)
 
     document.querySelector('#container-card-opp').innerHTML = ''
@@ -371,13 +396,15 @@ const actualizeCardBoard = (data) => {
     })
 }
 
-const actualizeHpMp = (data) => {
+const actualizeHpMpCc = (data) => {
     // display hp and mp for both players
     hpOpp.innerHTML = data['opponent']['hp']
     mpOpp.innerHTML = data['opponent']['mp']
+    ccOpp.innerHTML = data['opponent']['remainingCardsCount']
 
     hpPlayer.innerHTML = data['hp']
     mpPlayer.innerHTML = data['mp']
+    ccPlayer.innerHTML = data['remainingCardsCount']
 }
 
 const timerBar = () => {
@@ -448,6 +475,62 @@ const hittableCard = () => {
     }
 }
 
+const errManager = (data) => {
+    let err = document.createElement('div')
+    err.style = 'position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); width:25%; height: 15%; z-index:1001; text-align:center;'
+    err.id = 'error'
+
+    switch (data) {
+        case 'INVALID_ACTION':
+            err.innerHTML = "Action invalide"
+            break;
+        case 'ACTION_IS_NOT_AN_OBJECT':
+            err.innerHTML = "Action invalide"
+            break;
+        case 'NOT_ENOUGH_ENERGY':
+            err.innerHTML = "Pas assez d'énergie"
+            break;
+        case 'BOARD_IS_FULL':
+            err.innerHTML = "Le plateau est plein"
+            break;
+        case 'CARD_NOT_IN_HAND':
+            err.innerHTML = "La carte n'est pas dans la main"
+            break;
+        case 'CARD_IS_SLEEPING':
+            err.innerHTML = "La carte est endormie"
+            break;
+        case 'MUST_ATTACK_TAUNT_FIRST':
+            err.innerHTML = "Vous devez attaquer la carte avec Provocation"
+            break;
+        case 'OPPONENT_CARD_NOT_FOUND':
+            err.innerHTML = "La carte adverse n'a pas été trouvée"
+            break;
+        case 'OPPONENT_CARD_HAS_STEALTH':
+            err.innerHTML = "La carte adverse est furtive"
+            break;
+        case 'CARD_NOT_FOUND':
+            err.innerHTML = "La carte n'a pas été trouvée"
+            break;
+        case 'ERROR_PROCESSING_ACTION':
+            err.innerHTML = "Erreur lors du traitement de l'action"
+            break;
+        case 'INTERNAL_ACTION_ERROR':
+            err.innerHTML = "Erreur interne"
+            break;
+        case 'HERO_POWER_ALREADY_USED':
+            err.innerHTML = "Le pouvoir héroïque a déjà été utilisé"
+            break;
+    }
+
+    document.querySelector('body').appendChild(err)
+
+    err.style.opacity = '1'
+    setTimeout(() => {
+        err.style.opacity = '0'
+        document.querySelector('body').removeChild(err)
+    }, 2000);
+}
+
 const endGame = (data) => {
     end = true
     let main = document.querySelector('body')
@@ -480,11 +563,21 @@ const endGame = (data) => {
     main.appendChild(bg)
 }
 
+const heroPowerCheck = (data) => {
+    if (data['heroPowerAlreadyUsed']) {
+        document.querySelector('#hero-power').style.filter = 'grayscale(1)'
+    }
+}
+
 // -------------------------------------------------------------------------------------
 window.addEventListener("load", () => {
     // ----------------- STATIC ACTIONS -----------------------
     document.querySelector('#end-turn').addEventListener('click', () => {
       actionPlayerEndTurn()
+    })
+
+    document.querySelector('#hero-power').addEventListener('click', () => {
+        actionPlayerHeroPower()
     })
     
     setTimeout(state, 1000); // Appel initial (attendre 1 seconde)

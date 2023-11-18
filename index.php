@@ -22,15 +22,12 @@
         </div>
         
         <div id="box-login">
-            <form action="" method="post">
                 <div id="input-container">
                     <input type="text" name="username" id="username" placeholder="Votre nom d'utilisateur">
                     <input type="password" name="password" id="password" placeholder="Mot de passe">
                 </div>
-                <button type="submit">PLAY</button>
-            </form>
+                <button>PLAY</button>
         </div>
     </div>
-    
 </body>
 </html>

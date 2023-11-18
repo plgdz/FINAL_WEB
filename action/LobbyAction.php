@@ -10,8 +10,7 @@
 		protected function executeAction() {
 			$data = [];
 			$data['key'] = $_SESSION["key"];
-			$data["win"] = $_SESSION["winCount"]; 
-			$data["loss"] = $_SESSION["lossCount"]; 
+			$data["win"] = $_SESSION["winCount"];  
 			$data["trophies"] = $_SESSION["trophies"];
 
 			if(!empty($_POST["signout"])) {

@@ -20,6 +20,14 @@
     <div id="info-opponent">
         <div id="health" class="health-opps"><h3 class="nb-health info-hp-mp" id="hp-opp"></h3></div>
         <div id="mp" class="mp-opps"><h3 class="info-hp-mp" id="mp-opp" ></h3></div>
+        <div id="card-count-opp" class="card-count" >
+            <div class="card-count-img">
+                <img src="./images/logo/cartes-64.png" alt="card-count">
+            </div>
+            <div class="card-count-number" >
+            <h3 id="cc-opp"></h3>
+            </div>
+        </div>
         <div id="container-card-opp" ></div> 
         <div id="avatar-opp"></div> 
     </div>
@@ -44,7 +52,15 @@
         </div>
         <div class="card-container" id="cc2"></div>
         <div id="health" class="health-perso"><h3 class="nb-health info-hp-mp" id="hp-player" ></h3></div>
-        <div id="mp" class="mp-perso"><h3 class="info-hp-mp" id="mp-player"></h3></div>  
+        <div id="mp" class="mp-perso"><h3 class="info-hp-mp" id="mp-player"></h3></div>
+        <div id="card-count-perso" class="card-count" >
+            <div class="card-count-img">
+                <img src="./images/logo/cartes-64.png" alt="card-count">
+            </div>
+            <div class="card-count-number">
+                <h3 id="cc-perso"></h3>
+            </div>
+        </div> 
     </div>    
 </body>
 </html>
