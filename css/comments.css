@@ -41,7 +41,7 @@ body {
     width: 5vh;
     cursor: pointer;
     margin-right: 1vw;
-    background-color: #191e11;
+    background-image: url('/images/logo/add.png');
 }
 
 #comment-container {
@@ -50,7 +50,6 @@ body {
     width: 98%;
     display: flex;
     flex-wrap: wrap;
-    background-color: red;
     justify-content: space-between;
 }
 .id {
@@ -62,20 +61,21 @@ body {
     height: 20vh;
     width: 32%;
     background-color: rgb(66, 63, 57);
-    border: solid 1px rgb(56, 53, 48);
+    border: solid 3px rgb(56, 53, 48);
+    border-radius: 10px;
 }
 
 .comment-head {
     height: 20%;
     width: 100%;
-    background-color: #77b71d;
-    border-bottom: 3px solid #302217;
+    background-color: rgb(66, 63, 57);
+    border-bottom: 3px solid rgb(56, 53, 48);
     display: flex;
     justify-content: space-between;
     align-items: center;
     color: #ffffff;
     font-family: 'Ubuntu', sans-serif;
-    font-weight: 500;
+    font-weight: 400;
     text-align: center;
 }
 
@@ -83,7 +83,6 @@ body {
     height: 90%;
     width: 70%;
     margin-left: 2%;
-    background-color: #191e11;
     font-size: 1.15rem;
 }
 
@@ -91,13 +90,13 @@ body {
     height: 90%;
     width: 20%;
     margin-right: 2%;
-    background-color: #191e11;
 }
 
 .comment-content {
     height: 80%;
     width: 100%;
-    /* background-color: #ffffff; */
+    padding: 5px;
+    color: #ffffff;
 }
 
 .comment-action {
@@ -106,22 +105,29 @@ body {
     position: relative;
     top: -25%;
     left: 80%;
-    background-color: black;
     display: flex;
+    justify-content: space-between;
 }
 
 .comment-edit {
-    height: 100%;
-    width: 50%;
-    background-color: #77b71d;
+    height: 30px;
+    width: 30px;
     cursor: pointer;
+    background-image: url('/images/logo/edit.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top center;
 }
 
 .comment-delete {
-    height: 100%;
-    width: 50%;
-    background-color: rgb(250, 0, 0);
+    height: 30px;
+    width: 30px;
+
     cursor: pointer;
+    background-image: url('/images/logo/del.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top center;
 }
 
 

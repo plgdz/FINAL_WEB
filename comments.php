@@ -16,7 +16,7 @@
 <body>
     <div id="main-header">
         <h1>Notes</h1>
-        <div id="new">Ajouter</div>
+        <div id="new"></div>
     </div>
     <div id="main">
         <div id="comment-container">
