@@ -3,7 +3,8 @@
 body {
     padding: 0;
     margin: 0;
-    background: url("../images/background/bg-comments.jpg") top center no-repeat #302217;;
+    background: url("../images/background/bg-comments.jpg") top center no-repeat #302217;
+    ;
 
 }
 
@@ -11,7 +12,7 @@ body {
     position: relative;
     height: 85vh;
     width: 62vw;
-    background-color:  #ffffff51;
+    background-color: #ffffff51;
     left: 50%;
     top: 15vh;
     transform: translateX(-50%);
@@ -52,6 +53,7 @@ body {
     flex-wrap: wrap;
     justify-content: space-between;
 }
+
 .id {
     display: none;
 }
@@ -149,7 +151,8 @@ label {
     margin-bottom: 1%;
 }
 
-input, textarea {
+input,
+textarea {
     margin-bottom: 3%;
     background-color: rgb(66, 63, 57);
     border: solid 1px rgb(56, 53, 48);
@@ -177,9 +180,9 @@ button:hover {
     background-color: #77b71d;
 }
 
-#break{
+#break {
     height: 2px;
     width: 100%;
-    background: linear-gradient(90deg, rgba(255, 252, 252, 0) 15%,#8aed0080 35%,#8aed00bb 50%,#8aed0080 65%,rgba(255, 255, 255, 0) 85%);
+    background: linear-gradient(90deg, rgba(255, 252, 252, 0) 15%, #8aed0080 35%, #8aed00bb 50%, #8aed0080 65%, rgba(255, 255, 255, 0) 85%);
     position: relative;
 }
