@@ -10,6 +10,7 @@ const connectionRequest = () => {
       .then(response => response.json())
       .then(data => {
         if (typeof data == "object") {
+            localStorage.setItem('key', data.key)
             let opacity = 0
             let transition = document.createElement("div")
             transition.style.width = "100vw"

@@ -17,6 +17,11 @@
     <title>Game</title>
 </head>
 <body>
+    <div id="chat-container">
+        <iframe id="chat" onload="applyStyles(this)" 
+                src="https://magix.apps-de-cours.com/server/#/chat/<?= $data["key"] ?>">
+        </iframe>
+    </div>
     <div id="info-opponent">
         <div id="health" class="health-opps"><h3 class="nb-health info-hp-mp" id="hp-opp"></h3></div>
         <div id="mp" class="mp-opps"><h3 class="info-hp-mp" id="mp-opp" ></h3></div>
@@ -61,6 +66,9 @@
                 <h3 id="cc-perso"></h3>
             </div>
         </div> 
-    </div>    
+    </div>
+    <div id="burger-menu">
+        <img src="images/logo/logo-min.png" alt="logo" id="logo">
+    </div>  
 </body>
 </html>

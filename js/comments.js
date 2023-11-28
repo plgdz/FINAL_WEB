@@ -104,7 +104,8 @@ const notePopUp = (action, idNote) => {
         title.type = "text"
         title.name = "title"
         if (action == "edit") {
-            title.value = document.querySelector(`#c${idNote}`).children[0].children[0].innerText
+            let id = idNote.trim()
+            title.value = document.querySelector('#c'+id).children[0].children[0].innerText
         } else {
             title.placeholder = "Titre"
         }
@@ -126,7 +127,7 @@ const notePopUp = (action, idNote) => {
         description.rows = 10
         description.name = "note"
         if (action == "edit") {
-            description.value = document.querySelector(`#c${idNote}`).children[1].innerText
+            description.value = document.querySelector('#c'+idNote.trim()).children[1].innerText
         } else {
             description.placeholder = "Note ..."
         }

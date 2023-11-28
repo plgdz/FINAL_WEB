@@ -28,9 +28,12 @@
     top: 0;
     right: 0;
     transform: translate(-30%, -30%);
-    text-align: center;
     color: white;
     z-index: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Ubuntu';
 }
 
 .card-hp {

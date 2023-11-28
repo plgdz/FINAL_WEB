@@ -8,6 +8,9 @@
 		}
 
 		protected function executeAction() {
-			return [];
+			$data = [];
+			$data['key'] = $_SESSION['key'];
+
+			return $data;
         }
     }

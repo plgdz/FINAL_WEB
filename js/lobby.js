@@ -1,20 +1,16 @@
 let started = false
 let playing = false
 
-console.log('caca')
 let opacity = 1
 
-
-
 window.addEventListener("load", () => {
-    console.log(document.querySelector("body"))
+
     let transition = document.querySelector("#transition")
     setTimeout(() => {
         for (let i = 0; i < 100; i++) {
             setTimeout(() => {
                 opacity -= 0.01
                 transition.style.opacity = opacity
-                console.log(opacity)
             }, 10 * i)
         }},500)
     setTimeout(() => {
@@ -27,9 +23,7 @@ window.addEventListener("load", () => {
     menu.addEventListener("click", burgerMenu)
 })
 
-function popUpDojo() {
-    console.log("dojo")
-    
+function popUpDojo() {   
     let back = document.createElement("div")
     back.id = "dojo-menu-bg"
     back.style.backgroundColor = "white"
@@ -157,7 +151,7 @@ function burgerMenu(){
 
     let commentaire = document.createElement('li')
     commentaire.className = "elem-menu"
-    commentaire.innerHTML = 'Commentaire'
+    commentaire.innerHTML = '<a href="comments.php">Commentaire</a>'
 
     let signout = document.createElement('li')
     signout.className = "elem-menu"
@@ -168,6 +162,9 @@ function burgerMenu(){
             </button>\
         </form>\
     '
+    signout.addEventListener('click', () => {
+        localStorage.clear()
+    })
     
     listMenu.append(music)
     listMenu.append(deckCreation)

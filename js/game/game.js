@@ -31,7 +31,28 @@ let opp = document.getElementById('avatar-opp')
 
 let cdNumber = document.querySelector('#countdown-number')
 
-
+window.applyStyles = iframe => {
+    console.log('test')
+	let styles = {
+		fontColor : "#ebe7e5",
+		backgroundColor : "#3a3838",
+		fontGoogleName : "Ubuntu",
+		fontSize : "1.2rem",
+		hideIcons : false,
+		inputBackgroundColor : "#252424",
+		inputFontColor : "#ebe7e5",
+		height : "100%",
+        width : "100%",
+        zIndex : "1",
+		memberListFontColor : "white",
+		borderColor : "black",
+		memberListBackgroundColor : "#252424",
+	}
+	
+	setTimeout(() => {
+		iframe.contentWindow.postMessage(JSON.stringify(styles), "*");	
+}, 100);
+}
 
 const state = () => {
     fetch("ajax-state.php", {   // Il faut créer cette page et son contrôleur appelle 
@@ -291,6 +312,11 @@ const initDisplay = (data) => {
         uidBdPlayer.push(cardData.uid)
     })
 
+    if (!yourTurn) {
+        document.querySelector('#end-turn').style.filter = 'grayscale(1)'
+        document.querySelector('#end-turn').style.filter = 'grayscale(1)'
+    } 
+
 
     // ------------------- OPPONENT -----------------------------------
     // Set display of opponent hidden hand
@@ -313,6 +339,14 @@ const updateDisplay = (data) => {
     if (yourTurn != data['yourTurn']) {
         yourTurn = data['yourTurn']
         timerBar(data)
+    }
+
+    if (!yourTurn) {
+        document.querySelector('#end-turn').style.filter = 'grayscale(1)'
+        document.querySelector('#power').style.filter = 'grayscale(1)'
+    } else {
+        document.querySelector('#end-turn').style.filter = 'grayscale(0)'
+        document.querySelector('#power').style.filter = 'grayscale(0)'
     }
     cdNumber.innerHTML = data['remainingTurnTime']
 
@@ -565,9 +599,11 @@ const endGame = (data) => {
 
 const heroPowerCheck = (data) => {
     if (data['heroPowerAlreadyUsed']) {
-        document.querySelector('#hero-power').style.filter = 'grayscale(1)'
+        document.querySelector('#power').style.filter = 'grayscale(1)'
     }
 }
+
+
 
 // -------------------------------------------------------------------------------------
 window.addEventListener("load", () => {
@@ -576,11 +612,28 @@ window.addEventListener("load", () => {
       actionPlayerEndTurn()
     })
 
-    document.querySelector('#hero-power').addEventListener('click', () => {
+    document.querySelector('#power').addEventListener('click', () => {
         actionPlayerHeroPower()
+    })
+
+    document.querySelector('#burger-menu').addEventListener('click', () => {
+        let main = document.querySelector('body')
+        let bg = document.createElement('div')
+        bg.style = 'position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,.5); z-index:1000'
+        
+        document.querySelector('#chat-container').style.display = 'block'
+
+        main.append(bg)
+        bg.addEventListener('click', () => {
+            bg.remove()
+            document.querySelector('#chat-container').style.display = 'none'
+        })
     })
     
     setTimeout(state, 1000); // Appel initial (attendre 1 seconde)
 });
+
+
+
 
 
