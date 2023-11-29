@@ -39,7 +39,7 @@ const notePopUp = (action, idNote) => {
     container.style.top = "50%"
     container.style.left = "50%"
     container.style.transform = "translate(-50%, -50%)"
-    container.style.width = "25vw"
+    container.style.width = "50vw"
     if (action == "delete") {
         container.style.height = "20vh"
     } else {
@@ -97,12 +97,14 @@ const notePopUp = (action, idNote) => {
         divTitle.style.flexDirection = "column"
 
         let labelTitle = document.createElement("label")
+        labelTitle.style.color = "white"
         labelTitle.for = "title"
         labelTitle.innerHTML = "Titre"
 
         let title = document.createElement("input")
         title.type = "text"
         title.name = "title"
+        title.style.color = "white"
         if (action == "edit") {
             let id = idNote.trim()
             title.value = document.querySelector('#c'+id).children[0].children[0].innerText
@@ -119,10 +121,13 @@ const notePopUp = (action, idNote) => {
         divDescription.style.flexDirection = "column"
 
         let labelDescription = document.createElement("label")
+        labelDescription.style.color = "white"
         labelDescription.for = "note"
         labelDescription.innerHTML = "Note"
 
         let description = document.createElement("textarea")
+        description.style.resize = "none"
+        description.style.color = "white"
         description.type = "text"
         description.rows = 10
         description.name = "note"
