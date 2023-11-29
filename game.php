@@ -17,6 +17,11 @@
     <title>Game</title>
 </head>
 <body>
+    <div class="loader-container">
+        <div class="loader"></div>
+
+    </div>
+
     <div id="chat-container">
         <iframe id="chat" onload="applyStyles(this)" 
                 src="https://magix.apps-de-cours.com/server/#/chat/<?= $data["key"] ?>">

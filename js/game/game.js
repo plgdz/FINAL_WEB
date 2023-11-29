@@ -1,6 +1,8 @@
 import {CarteHand} from './CarteHand.js'
 import { CarteOpp } from './carteOpp.js'
 
+let waiting = true
+
 let delay = 1000
 let init = true
 let yourTurn = null
@@ -289,6 +291,11 @@ const actionPlayerHeroPower = () => {
 
 // ----------------- DISPLAY UPDATES -----------------------------
 const initDisplay = (data) => {
+    if (waiting) {
+        document.querySelector('.loader-container').style.display = 'none'
+        waiting = false
+    }
+
     yourTurn = data['yourTurn']
     timerBar(data)
     cdNumber.innerHTML = data['remainingTurnTime']
@@ -336,6 +343,11 @@ const initDisplay = (data) => {
 }
 
 const updateDisplay = (data) => {
+    if (waiting) {
+        document.querySelector('.loader-container').style.display = 'none'
+        waiting = false
+    }
+
     if (yourTurn != data['yourTurn']) {
         yourTurn = data['yourTurn']
         timerBar(data)
