@@ -472,18 +472,22 @@ from : https://css-loaders.com/hypnotic/
 
 /* HTML: <div class="loader"></div> */
 .loader {
-  width: 25px;
-  height: 50px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50px;
+  height: 100px;
   display: grid;
   color: #000;
   background:
-    linear-gradient(currentColor 0 0) top/100% 2px,
-    radial-gradient(farthest-side at  top, #0000 calc(100% - 2px),currentColor calc(100% - 1px) ,#0000) top,
+    linear-gradient(currentColor 0 0) top/100% 4px,
+    radial-gradient(farthest-side at  top, #0000 calc(100% - 4px),currentColor calc(100% - 1px) ,#0000) top,
     linear-gradient(currentColor 0 0) bottom/100% 2px,
-    radial-gradient(farthest-side at  bottom, #0000 calc(100% - 2px),currentColor calc(100% - 1px) ,#0000) bottom;
-  background-size: 100% 1px,100% 50%; 
+    radial-gradient(farthest-side at  bottom, #0000 calc(100% - 4px),currentColor calc(100% - 1px) ,#0000) bottom;
+  background-size: 100% 3px,100% 50%; 
   background-repeat: no-repeat;
-  animation: l18 4s infinite linear;
+  animation: l18 4s infinite linear alternate;
   z-index: 999999999;
 }
 .loader::before,
