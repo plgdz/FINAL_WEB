@@ -253,23 +253,23 @@ button {
 }
 
 .L {
-  animation: appear .2s forwards ease-out ;
+  animation: appear .2s forwards 1s ease-out ;
 }
 
 .O {
-  animation: appear .2s forwards .1s ease-out;
+  animation: appear .2s forwards 1.1s ease-out;
 }
 
 .B1 {
-  animation: appear .2s forwards .2s ease-out;
+  animation: appear .2s forwards 1.2s ease-out;
 }
 
 .B2 {
-  animation: appear .2s forwards .3s ease-out;
+  animation: appear .2s forwards 1.3s ease-out;
 }
 
 .Y {
-  animation: appear .2s forwards .4s ease-out;
+  animation: appear .2s forwards 1.4s ease-out;
 }
 
 

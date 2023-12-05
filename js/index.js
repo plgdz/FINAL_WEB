@@ -10,7 +10,8 @@ const connectionRequest = () => {
       .then(response => response.json())
       .then(data => {
         if (typeof data == "object") {
-            localStorage.setItem('key', data.key)
+            localStorage.setItem('username', document.querySelector("#username").value)
+            console.log(data)
             let opacity = 0
             let transition = document.createElement("div")
             transition.style.width = "100vw"
@@ -50,5 +51,9 @@ const connectionRequest = () => {
 }
 
 window.addEventListener("load", () => {
+    if (localStorage.getItem('username')) {
+        document.querySelector('#username').value = localStorage.getItem('username')
+    }
+
     document.querySelector("button").addEventListener("click", connectionRequest)
 })

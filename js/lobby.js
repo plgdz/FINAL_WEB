@@ -162,9 +162,6 @@ function burgerMenu(){
             </button>\
         </form>\
     '
-    signout.addEventListener('click', () => {
-        localStorage.clear()
-    })
     
     listMenu.append(music)
     listMenu.append(deckCreation)
