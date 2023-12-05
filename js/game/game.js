@@ -523,7 +523,9 @@ const hittableCard = () => {
 
 const errManager = (data) => {
     let err = document.createElement('div')
-    err.style = 'position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); width:25%; height: 15%; z-index:1001; text-align:center;'
+    err.style = 'position:fixed; top:25%; left:50%; transform:translate(-50%, -50%); width:25%; height: 15%; z-index:1001;\
+                display: flex; justify-content:center;align-items:center;background-color: rgb(77, 73, 66);; height:5vh;border:solid 3px rgb(56, 53, 48);\
+                border-radius:20px;color:white'
     err.id = 'error'
 
     switch (data) {

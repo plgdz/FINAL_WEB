@@ -98,4 +98,6 @@ button:hover{
     cursor: pointer;
 }
 
-
+#error {
+    background-color: 'red';
+}
