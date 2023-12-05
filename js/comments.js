@@ -41,9 +41,9 @@ const notePopUp = (action, idNote) => {
     container.style.transform = "translate(-50%, -50%)"
     container.style.width = "50vw"
     if (action == "delete") {
-        container.style.height = "20vh"
+        container.style.height = "25vh"
     } else {
-        container.style.height = "45vh"
+        container.style.height = "50vh"
     }
     container.style.backgroundColor = "rgb(77, 73, 66)"
     container.style.borderRadius = "10px"
