@@ -25,6 +25,9 @@
 					$data["targetuid"] = $_POST["targetuid"];
 					$result = CommonAction::callAPI('games/action', $data);
 					return compact("result");
+				} elseif ($data["type"] == "HERO_POWER") {
+					$result = CommonAction::callAPI('games/action', $data);
+					return compact("result");
 				}
 			}	
 
